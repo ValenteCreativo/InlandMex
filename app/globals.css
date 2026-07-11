@@ -31,12 +31,12 @@ body {
 body::before {
   background-image:
     linear-gradient(rgba(10, 12, 8, 0.02), rgba(18, 20, 14, 0.1)),
-    url("/volcan-iztapalapa-bg.jpg");
+    url("/volcan-iztapalapa-6-bg.jpg");
   background-position: center;
   background-size: cover;
   content: "";
-  filter: blur(10px) saturate(1.2) contrast(1.08);
-  inset: -30px;
+  filter: blur(6px) saturate(1.18) contrast(1.06);
+  inset: -20px;
   position: fixed;
   transform: scale(1.06);
   z-index: -3;
@@ -47,7 +47,7 @@ body::after {
     radial-gradient(circle at 50% 18%, rgba(242, 234, 220, 0.11), transparent 35%),
     radial-gradient(circle at 12% 70%, rgba(18, 20, 14, 0.18), transparent 44%),
     linear-gradient(rgba(242, 234, 220, 0.02), rgba(18, 20, 14, 0.2));
-  backdrop-filter: blur(3px) saturate(1.1);
+  backdrop-filter: blur(1.5px) saturate(1.08);
   content: "";
   inset: 0;
   pointer-events: none;
@@ -164,7 +164,7 @@ textarea {
   background:
     radial-gradient(circle at 50% 34%, rgba(242, 234, 220, 0.2), transparent 30%),
     rgba(18, 20, 14, 0.03);
-  backdrop-filter: blur(3px) saturate(1.03);
+  backdrop-filter: blur(1.5px) saturate(1.04);
   inset: 0;
   position: absolute;
   z-index: 0;
@@ -308,7 +308,7 @@ p {
 .compact-section,
 .mission-banner,
 .footer {
-  backdrop-filter: blur(16px) saturate(1.08);
+  backdrop-filter: blur(8px) saturate(1.08);
 }
 
 .compact-section {
