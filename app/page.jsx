@@ -1,12 +1,47 @@
 import ClientEffects from "./client-effects";
 
 const coordinates = [
-  ["INM-0421", "19.3447, -99.0291 · Healthy"],
-  ["INM-0418", "19.3452, -99.0304 · New growth"],
-  ["INM-0409", "19.3438, -99.0287 · Needs water"],
-  ["INM-0397", "19.3460, -99.0312 · Healthy"],
-  ["INM-0388", "19.3429, -99.0278 · Stabilized"],
-  ["INM-0375", "19.3456, -99.0298 · Healthy"],
+  ["ARB-001", "Fresno · 19.344353°N, 98.989863°W"],
+  ["ARB-002", "Fresno · 19.344718°N, 98.989436°W"],
+  ["ARB-003", "Jacaranda · 19.344684°N, 98.989477°W"],
+  ["ARB-004", "Liquidámbar · 19.344680°N, 98.989476°W"],
+  ["ARB-005", "Fresno · 19.344712°N, 98.989477°W"],
+  ["ARB-006", "Liquidámbar · 19.344690°N, 98.989500°W"],
+  ["ARB-007", "Jacaranda · 19.344399°N, 98.989627°W"],
+  ["ARB-008", "Jacaranda · 19.344365°N, 98.989624°W"],
+  ["ARB-009", "Fresno · 19.344304°N, 98.989621°W"],
+  ["ARB-010", "Jacaranda · 19.344403°N, 98.989670°W"],
+  ["ARB-011", "Jacaranda · 19.344423°N, 98.989630°W"],
+  ["ARB-012", "Fresno · 19.344438°N, 98.989633°W"],
+  ["ARB-013", "Liquidámbar · 19.343984°N, 98.989675°W"],
+  ["ARB-014", "Jacaranda · 19.343971°N, 98.989713°W"],
+  ["ARB-015", "Liquidámbar · 19.343957°N, 98.989763°W"],
+  ["ARB-016", "Liquidámbar · 19.344015°N, 98.989755°W"],
+  ["ARB-017", "Pata de vaca · 19.343967°N, 98.989737°W"],
+  ["ARB-018", "Fresno · 19.346147°N, 98.990391°W"],
+  ["ARB-019", "Fresno · 19.345930°N, 98.990362°W"],
+  ["ARB-020", "Jacaranda · 19.345875°N, 98.990329°W"],
+  ["ARB-021", "Fresno · 19.345848°N, 98.990320°W"],
+  ["ARB-022", "Fresno · 19.345758°N, 98.990412°W"],
+  ["ARB-023", "Arce rojo · 19.345763°N, 98.990450°W"],
+  ["ARB-024", "Fresno · 19.345772°N, 98.990536°W"],
+  ["ARB-025", "Liquidámbar · 19.345774°N, 98.990555°W"],
+  ["ARB-026", "Jacaranda · 19.345704°N, 98.990408°W"],
+  ["ARB-027", "Jacaranda · 19.345677°N, 98.990405°W"],
+  ["ARB-028", "Arce rojo · 19.345314°N, 98.990372°W"],
+  ["ARB-029", "Jacaranda · 19.344967°N, 98.990443°W"],
+  ["ARB-030", "Jacaranda · 19.344269°N, 98.990798°W"],
+  ["ARB-031", "Jacaranda · 19.344722°N, 98.991266°W"],
+  ["ARB-032", "Liquidámbar · 19.344726°N, 98.989531°W"],
+  ["ARB-033", "Fresno · 19.344766°N, 98.989541°W"],
+  ["ARB-034", "Fresno · 19.344804°N, 98.989536°W"],
+  ["ARB-035", "Fresno · 19.344919°N, 98.989527°W"],
+  ["ARB-036", "Fresno · 19.344871°N, 98.989594°W"],
+  ["ARB-037", "Fresno · 19.244816°N, 98.989576°W"],
+  ["ARB-038", "Liquidámbar · 19.344680°N, 98.989476°W"],
+  ["ARB-039", "Fresno · ubicación pendiente"],
+  ["ARB-040", "Fresno · 19.346527°N, 98.989371°W"],
+  ["ARB-041", "Fresno · ubicación pendiente"],
 ];
 
 export default function Home() {
@@ -40,21 +75,22 @@ export default function Home() {
           <div className="float-photo photo-six" />
 
           <article className="story-copy copy-one">
-            <p className="kicker">What is Inland Mex?</p>
-            <h1>Experiences where every trip restores nature.</h1>
+            <p className="kicker">Quiénes somos</p>
+            <h1>Experiencias donde cada viaje ayuda a restaurar la naturaleza.</h1>
             <p>
-              At Inland Mex, we create experiences where every journey helps restore nature, support
-              the local economy, and reveal another side of Iztapalapa.
+              En Inland Mex creamos experiencias donde cada viaje ayuda a restaurar la naturaleza,
+              impulsar la economía local y mostrar otra cara de Iztapalapa.
             </p>
           </article>
 
           <article className="story-copy copy-two">
-            <p className="kicker">What will you live?</p>
-            <h2>A morning that changes how you see Iztapalapa, nature, the city, and your own way of living.</h2>
+            <p className="kicker">Qué vivirás</p>
+            <h2>Una mañana que cambiará la forma en la que ves Iztapalapa, la naturaleza, la ciudad y tu propio estilo de vida.</h2>
             <p>
-              Walk before sunrise through an ancient volcano, contemplate Mexico City from above,
-              share breakfast over the clouds, plant a tree that will last for decades, and discover
-              our story of territorial regeneration.
+              Caminarás antes del amanecer por un antiguo volcán, contemplarás desde las alturas la
+              Ciudad de México, la quinta ciudad más grande del mundo, compartirás un desayuno sobre
+              las nubes, plantarás un árbol que durará por décadas y descubrirás nuestra historia de
+              regeneración del territorio.
             </p>
           </article>
         </section>
@@ -115,8 +151,8 @@ export default function Home() {
               <div className="feed-title"><span />Inventory</div>
               <div className="feed-window">
                 <ul>
-                  {coordinates.map(([id, meta]) => (
-                    <li key={id}><strong>{id}</strong><span>{meta}</span></li>
+                  {[...coordinates, ...coordinates].map(([id, meta], index) => (
+                    <li key={`${id}-${index}`}><strong>{id}</strong><span>{meta}</span></li>
                   ))}
                 </ul>
               </div>
