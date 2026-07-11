@@ -63,16 +63,14 @@ export default function Home() {
 
         <section className="kudanil-story" aria-label="Inland Mex story">
           <div className="glass-backdrop" aria-hidden="true" />
-          <div className="float-photo photo-one">
-            <video className="lazy-video" src="/hero-loop.mp4" muted playsInline preload="none" />
-          </div>
+          <div className="float-photo photo-one" />
           <div className="float-photo photo-two" />
           <div className="float-photo photo-three" />
-          <div className="float-photo photo-four">
-            <video className="lazy-video" src="/hero-loop.mp4" muted playsInline preload="none" />
-          </div>
+          <div className="float-photo photo-four" />
           <div className="float-photo photo-five" />
           <div className="float-photo photo-six" />
+          <div className="float-photo photo-seven" />
+          <div className="float-photo photo-eight" />
 
           <article className="story-copy copy-one">
             <p className="kicker">Quiénes somos</p>
@@ -97,34 +95,40 @@ export default function Home() {
 
         <section className="compact-section tours" id="experiences">
           <div className="section-title">
-            <p className="kicker">Experiences</p>
-            <h2>Three ways into the volcano.</h2>
+            <p className="kicker">Experiencias</p>
+            <h2>Elige tu ruta por Iztapalapa.</h2>
           </div>
           <div className="orb-row">
             <article className="tour-orb">
-              <div className="orb-image sunrise" />
-              <h3>Sunrise Hike</h3>
-              <p>Early trail, slow pace, first light over the city.</p>
+              <div className="orb-image night-route" />
+              <h3>Ruta nocturna</h3>
+              <p>$850 · Senderismo, linternas y amanecer sobre la ciudad.</p>
             </article>
             <article className="tour-orb">
-              <div className="orb-image forest" />
-              <h3>Reforestation Walk</h3>
-              <p>Visit planting zones and document one living tree.</p>
+              <div className="orb-image graffiti-route" />
+              <h3>Grafiti Tour</h3>
+              <p>$650 · Arte urbano, barrio y otra mirada de Iztapalapa.</p>
             </article>
             <article className="tour-orb">
-              <div className="orb-image private" />
-              <h3>Private Field Day</h3>
-              <p>Custom route for teams, schools, and travelers.</p>
+              <div className="orb-image temazcal-route" />
+              <h3>Ruta Temazcal</h3>
+              <p>$850 · Caminata, ritual, naturaleza y regeneración.</p>
             </article>
           </div>
           <div className="detail-box">
             <div>
-              <strong>Includes</strong>
-              <span>Local guide, trail briefing, photo recap, impact contribution, and inventory record.</span>
+              <strong>Qué incluye</strong>
+              <span>
+                Árbol y tierra para reforestar · Guías · Box lunch desayuno · Bolsa de agua · Linternas ·
+                Entrada al área natural protegida · Visita al teleférico · Fotografías durante la experiencia ·
+                Meditación · Senderismo interpretativo · Visita al cráter opcional · Transporte.
+              </span>
             </div>
             <div>
-              <strong>From $48 USD</strong>
-              <span>Small groups · private dates available</span>
+              <strong>Inversión</strong>
+              <span>$850 por persona. Reserva con $450 y liquida con $400.</span>
+              <strong>Transferencia</strong>
+              <span>Tarjeta Santander: 5579 0990 1666 4502 · José Varela.</span>
             </div>
           </div>
         </section>
@@ -215,7 +219,7 @@ export default function Home() {
           <a href="#technology">Technology</a>
           <a href="#reserve">Reserve</a>
         </nav>
-        <p>From México with 💚</p>
+        <p>777 130 9737 · @Inlandmex</p>
         <small>© 2026 Inland Mex</small>
       </footer>
     </>

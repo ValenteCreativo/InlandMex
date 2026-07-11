@@ -175,7 +175,7 @@ textarea {
   animation-timeline: view();
   background:
     linear-gradient(rgba(18, 20, 14, 0.03), rgba(18, 20, 14, 0.18)),
-    url("/volcan-iztapalapa-bg.jpg");
+    var(--photo);
   background-position: center;
   background-size: cover;
   border: 1px solid rgba(247, 242, 232, 0.24);
@@ -186,49 +186,79 @@ textarea {
 }
 
 .photo-one {
-  height: 225px;
-  left: 6vw;
+  --photo: url("/fotos/website/IMG_7523.jpg");
+  border-radius: 42% 42% 6px 6px;
+  height: 230px;
+  left: 5vw;
   top: 12vh;
   width: 158px;
 }
 
 .photo-two {
+  --photo: url("/fotos/website/Untitled design (1).png");
   background-position: 60% 46%;
+  border-radius: 999px;
   height: 155px;
   right: 12vw;
   top: 16vh;
-  width: 220px;
+  width: 155px;
 }
 
 .photo-three {
+  --photo: url("/fotos/website/Untitled design (2).png");
   background-position: 44% 65%;
-  height: 142px;
-  left: 16vw;
+  border-radius: 6px;
+  height: 136px;
+  left: 14vw;
   top: 96vh;
   width: 210px;
 }
 
 .photo-four {
-  height: 252px;
-  right: 7vw;
+  --photo: url("/fotos/website/Untitled design (3).png");
+  border-radius: 50%;
+  height: 182px;
+  right: 8vw;
   top: 118vh;
-  width: 176px;
+  width: 182px;
 }
 
 .photo-five {
+  --photo: url("/fotos/website/Untitled design (4).png");
   background-position: 36% 38%;
-  height: 170px;
+  border-radius: 6px 70px 6px 70px;
+  height: 156px;
   left: 7vw;
   top: 162vh;
-  width: 255px;
+  width: 240px;
 }
 
 .photo-six {
+  --photo: url("/fotos/website/Untitled design (5).png");
   background-position: 70% 60%;
+  border-radius: 10px;
   height: 132px;
   right: 18vw;
   top: 184vh;
   width: 210px;
+}
+
+.photo-seven {
+  --photo: url("/fotos/website/Untitled design (6).png");
+  border-radius: 50%;
+  height: 104px;
+  left: 22vw;
+  top: 52vh;
+  width: 104px;
+}
+
+.photo-eight {
+  --photo: url("/fotos/website/Grafity tour_.png");
+  border-radius: 6px;
+  height: 120px;
+  right: 24vw;
+  top: 150vh;
+  width: 188px;
 }
 
 @keyframes floatUp {
@@ -356,7 +386,7 @@ p {
 }
 
 .orb-image {
-  background-image: url("/volcan-iztapalapa-bg.jpg");
+  background-image: var(--tour-photo);
   background-size: cover;
   border: 1px solid rgba(247, 242, 232, 0.44);
   border-radius: 50%;
@@ -367,16 +397,19 @@ p {
   width: clamp(70px, 7.4vw, 96px);
 }
 
-.sunrise {
-  background-position: 45% 36%;
+.night-route {
+  --tour-photo: url("/fotos/website/ruta-nocturna.jpg");
+  background-position: center;
 }
 
-.forest {
-  background-position: 55% 62%;
+.graffiti-route {
+  --tour-photo: url("/fotos/website/Grafity tour_.png");
+  background-position: center;
 }
 
-.private {
-  background-position: 72% 50%;
+.temazcal-route {
+  --tour-photo: url("/fotos/website/ruta-temazcal.png");
+  background-position: center;
 }
 
 .tour-orb h3 {
@@ -396,7 +429,7 @@ p {
   border: 1px solid var(--line);
   display: grid;
   gap: 18px;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.35fr 0.9fr;
   margin: 14px auto 0;
   max-width: 690px;
   padding: 10px;
@@ -407,6 +440,7 @@ p {
 .detail-box div {
   display: grid;
   gap: 5px;
+  align-content: start;
 }
 
 .detail-box strong,
@@ -420,7 +454,7 @@ p {
   align-items: center;
   background:
     linear-gradient(rgba(18, 20, 14, 0.46), rgba(18, 20, 14, 0.46)),
-    url("/volcan-iztapalapa-bg.jpg");
+    url("/fotos/website/Untitled design (6).png");
   background-position: center 48%;
   background-size: cover;
   border: 1px solid rgba(247, 242, 232, 0.3);
@@ -481,21 +515,22 @@ p {
 
 .before-layer {
   background:
-    linear-gradient(rgba(18, 20, 14, 0.08), rgba(18, 20, 14, 0.42)),
-    url("/before.jpeg");
+    linear-gradient(rgba(18, 20, 14, 0.02), rgba(18, 20, 14, 0.18)),
+    url("/after.jpeg");
   background-position: center;
   background-size: cover;
-  filter: grayscale(0.9) saturate(0.5);
+  clip-path: inset(0 calc(100% - var(--compare, 56%)) 0 0);
+  z-index: 2;
 }
 
 .after-layer {
   background:
     linear-gradient(rgba(18, 20, 14, 0.02), rgba(18, 20, 14, 0.22)),
-    url("/after.jpeg");
+    url("/before.jpeg");
   background-position: center;
   background-size: cover;
-  clip-path: inset(0 calc(100% - var(--compare, 56%)) 0 0);
   filter: saturate(1.18);
+  z-index: 1;
 }
 
 .before-after input {
@@ -565,7 +600,7 @@ p {
 }
 
 .feed-window ul {
-  animation: feedScroll 9s linear infinite;
+  animation: feedScroll 62s linear infinite;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -641,7 +676,7 @@ p {
 .scan-scene {
   background:
     linear-gradient(rgba(18, 20, 14, 0.04), rgba(18, 20, 14, 0.24)),
-    url("/volcan-iztapalapa-bg.jpg");
+    url("/fotos/website/Untitled design (4).png");
   background-position: center;
   background-size: cover;
   height: 100%;
@@ -861,7 +896,9 @@ p {
   .photo-three,
   .photo-four,
   .photo-five,
-  .photo-six {
+  .photo-six,
+  .photo-seven,
+  .photo-eight {
     max-width: 42vw;
   }
 
