@@ -16,7 +16,7 @@ export default function Home() {
       <main id="top">
         <section className="hero" aria-label="Inland Mex volcano hiking">
           <div className="hero-video-shell">
-            <video className="hero-video" src="/Video1.mp4" autoPlay loop muted playsInline preload="auto" />
+            <video className="hero-video" src="/hero-loop.mp4" autoPlay muted playsInline preload="auto" />
             <div className="video-soften" />
           </div>
 
@@ -29,12 +29,12 @@ export default function Home() {
         <section className="kudanil-story" aria-label="Inland Mex story">
           <div className="glass-backdrop" aria-hidden="true" />
           <div className="float-photo photo-one">
-            <video className="lazy-video" src="/Video1.mp4" muted playsInline loop preload="none" />
+            <video className="lazy-video" src="/hero-loop.mp4" muted playsInline preload="none" />
           </div>
           <div className="float-photo photo-two" />
           <div className="float-photo photo-three" />
           <div className="float-photo photo-four">
-            <video className="lazy-video" src="/Video1.mp4" muted playsInline loop preload="none" />
+            <video className="lazy-video" src="/hero-loop.mp4" muted playsInline preload="none" />
           </div>
           <div className="float-photo photo-five" />
           <div className="float-photo photo-six" />

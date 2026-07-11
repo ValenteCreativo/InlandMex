@@ -32,10 +32,13 @@ export default function ClientEffects() {
         video.playsInline = true;
         video.loop = false;
 
+        const loopStart = 0.18;
+        const loopPadding = 0.62;
+
         const seamlessLoop = () => {
           if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-          if (video.currentTime >= video.duration - 0.5) {
-            video.currentTime = 0.12;
+          if (video.currentTime >= video.duration - loopPadding) {
+            video.currentTime = loopStart;
           }
         };
 
@@ -45,12 +48,12 @@ export default function ClientEffects() {
         };
 
         video.addEventListener("loadedmetadata", () => {
-          if (video.currentTime < 0.1) video.currentTime = 0.12;
+          if (video.currentTime < loopStart) video.currentTime = loopStart;
         });
         video.addEventListener("canplay", keepPlaying, { once: true });
         video.addEventListener("timeupdate", seamlessLoop);
         video.addEventListener("ended", () => {
-          video.currentTime = 0.12;
+          video.currentTime = loopStart;
           keepPlaying();
         });
         video.addEventListener("stalled", keepPlaying);
@@ -84,8 +87,8 @@ export default function ClientEffects() {
 
       const monitorLoop = () => {
         document.querySelectorAll("video[data-prepared='true']").forEach((video) => {
-          if (Number.isFinite(video.duration) && video.duration > 0 && video.currentTime >= video.duration - 0.5) {
-            video.currentTime = 0.12;
+          if (Number.isFinite(video.duration) && video.duration > 0 && video.currentTime >= video.duration - 0.62) {
+            video.currentTime = 0.18;
           }
         });
         window.requestAnimationFrame(monitorLoop);
