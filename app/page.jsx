@@ -41,10 +41,10 @@ export default function Home() {
 
           <article className="story-copy copy-one">
             <p className="kicker">What is Inland Mex?</p>
-            <h1>Volcano hikes that restore the urban forest.</h1>
+            <h1>Experiences where every trip restores nature.</h1>
             <p>
-              A guided outdoor experience in Iztapalapa where every visit funds native tree planting,
-              field monitoring, and a transparent inventory of the landscape coming back to life.
+              At Inland Mex, we create experiences where every journey helps restore nature, support
+              the local economy, and reveal another side of Iztapalapa.
             </p>
           </article>
 
