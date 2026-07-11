@@ -50,10 +50,11 @@ export default function Home() {
 
           <article className="story-copy copy-two">
             <p className="kicker">What will you live?</p>
-            <h2>A quiet climb, local stories, city views, and direct ecological work.</h2>
+            <h2>A morning that changes how you see Iztapalapa, nature, the city, and your own way of living.</h2>
             <p>
-              Walk volcanic trails with local guides, visit reforested zones, learn the context of
-              the territory, and leave connected to a tree record that will later support sponsorship.
+              Walk before sunrise through an ancient volcano, contemplate Mexico City from above,
+              share breakfast over the clouds, plant a tree that will last for decades, and discover
+              our story of territorial regeneration.
             </p>
           </article>
         </section>
