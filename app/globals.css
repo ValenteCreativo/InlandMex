@@ -482,7 +482,7 @@ p {
 .before-layer {
   background:
     linear-gradient(rgba(18, 20, 14, 0.08), rgba(18, 20, 14, 0.42)),
-    url("/volcan-iztapalapa-bg.jpg");
+    url("/before.jpeg");
   background-position: center;
   background-size: cover;
   filter: grayscale(0.9) saturate(0.5);
@@ -491,7 +491,7 @@ p {
 .after-layer {
   background:
     linear-gradient(rgba(18, 20, 14, 0.02), rgba(18, 20, 14, 0.22)),
-    url("/volcan-iztapalapa-bg.jpg");
+    url("/after.jpeg");
   background-position: center;
   background-size: cover;
   clip-path: inset(0 calc(100% - var(--compare, 56%)) 0 0);
