@@ -179,7 +179,7 @@ textarea {
   background-position: center;
   background-size: cover;
   border: 1px solid rgba(247, 242, 232, 0.24);
-  box-shadow: 0 22px 65px rgba(18, 20, 14, 0.2);
+  box-shadow: 0 18px 50px rgba(18, 20, 14, 0.18);
   overflow: hidden;
   position: absolute;
   z-index: 5;
@@ -187,78 +187,78 @@ textarea {
 
 .photo-one {
   --photo: url("/fotos/website/IMG_7523.jpg");
-  border-radius: 42% 42% 6px 6px;
-  height: 230px;
+  border-radius: 999px;
+  height: 138px;
   left: 5vw;
-  top: 12vh;
-  width: 158px;
+  top: 18vh;
+  width: 138px;
 }
 
 .photo-two {
   --photo: url("/fotos/website/Untitled design (1).png");
   background-position: 60% 46%;
-  border-radius: 999px;
-  height: 155px;
-  right: 12vw;
-  top: 16vh;
-  width: 155px;
+  border-radius: 6px;
+  height: 112px;
+  right: 8vw;
+  top: 20vh;
+  width: 168px;
 }
 
 .photo-three {
   --photo: url("/fotos/website/Untitled design (2).png");
   background-position: 44% 65%;
   border-radius: 6px;
-  height: 136px;
-  left: 14vw;
-  top: 96vh;
-  width: 210px;
+  height: 108px;
+  left: 8vw;
+  top: 82vh;
+  width: 170px;
 }
 
 .photo-four {
   --photo: url("/fotos/website/Untitled design (3).png");
   border-radius: 50%;
-  height: 182px;
-  right: 8vw;
-  top: 118vh;
-  width: 182px;
+  height: 126px;
+  right: 10vw;
+  top: 86vh;
+  width: 126px;
 }
 
 .photo-five {
   --photo: url("/fotos/website/Untitled design (4).png");
   background-position: 36% 38%;
-  border-radius: 6px 70px 6px 70px;
-  height: 156px;
-  left: 7vw;
-  top: 162vh;
-  width: 240px;
+  border-radius: 6px;
+  height: 118px;
+  left: 6vw;
+  top: 150vh;
+  width: 178px;
 }
 
 .photo-six {
   --photo: url("/fotos/website/Untitled design (5).png");
   background-position: 70% 60%;
-  border-radius: 10px;
-  height: 132px;
-  right: 18vw;
-  top: 184vh;
-  width: 210px;
+  border-radius: 999px;
+  height: 116px;
+  right: 7vw;
+  top: 154vh;
+  width: 116px;
 }
 
 .photo-seven {
   --photo: url("/fotos/website/Untitled design (6).png");
   border-radius: 50%;
-  height: 104px;
-  left: 22vw;
-  top: 52vh;
-  width: 104px;
+  height: 82px;
+  left: 23vw;
+  top: 40vh;
+  width: 82px;
 }
 
 .photo-eight {
   --photo: url("/fotos/website/Grafity tour_.png");
   border-radius: 6px;
-  height: 120px;
-  right: 24vw;
-  top: 150vh;
-  width: 188px;
+  height: 92px;
+  right: 22vw;
+  top: 132vh;
+  width: 148px;
 }
 
 @keyframes floatUp {
@@ -273,7 +273,7 @@ textarea {
 .story-copy {
   display: grid;
   margin: 20vh auto;
-  max-width: 430px;
+  max-width: 460px;
   min-height: 56vh;
   place-content: center;
   position: relative;
@@ -284,10 +284,10 @@ textarea {
 .story-copy::before,
 .section-title::before,
 .reserve-copy::before {
-  background: radial-gradient(ellipse at center, rgba(242, 234, 220, 0.58), rgba(242, 234, 220, 0.22) 42%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(242, 234, 220, 0.72), rgba(242, 234, 220, 0.34) 46%, transparent 74%);
   content: "";
-  filter: blur(14px);
-  inset: -26px -42px;
+  filter: blur(18px);
+  inset: -34px -54px;
   pointer-events: none;
   position: absolute;
   z-index: -1;
@@ -515,21 +515,20 @@ p {
 
 .before-layer {
   background:
-    linear-gradient(rgba(18, 20, 14, 0.02), rgba(18, 20, 14, 0.18)),
-    url("/after.jpeg");
+    linear-gradient(rgba(18, 20, 14, 0.02), rgba(18, 20, 14, 0.14)),
+    url("/before.jpeg");
   background-position: center;
   background-size: cover;
-  clip-path: inset(0 calc(100% - var(--compare, 56%)) 0 0);
+  clip-path: inset(0 calc(100% - var(--compare, 50%)) 0 0);
   z-index: 2;
 }
 
 .after-layer {
   background:
-    linear-gradient(rgba(18, 20, 14, 0.02), rgba(18, 20, 14, 0.22)),
-    url("/before.jpeg");
+    linear-gradient(rgba(18, 20, 14, 0.02), rgba(18, 20, 14, 0.18)),
+    url("/after.jpeg");
   background-position: center;
   background-size: cover;
-  filter: saturate(1.18);
   z-index: 1;
 }
 
@@ -552,7 +551,7 @@ p {
   position: absolute;
   text-transform: uppercase;
   top: 14px;
-  z-index: 2;
+  z-index: 4;
 }
 
 .before-label {

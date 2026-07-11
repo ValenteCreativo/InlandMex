@@ -134,25 +134,25 @@ export default function Home() {
         </section>
 
         <section className="mission-banner">
-          <p>Mission</p>
-          <h2>Your hike plants, monitors, and protects native trees in Iztapalapa.</h2>
+          <p>Misión</p>
+          <h2>Tu caminata planta, monitorea y protege árboles nativos en Iztapalapa.</h2>
         </section>
 
         <section className="compact-section impact" id="impact">
           <div className="section-title">
-            <p className="kicker">Impact</p>
-            <h2>Measured restoration.</h2>
+            <p className="kicker">Impacto</p>
+            <h2>Restauración medible.</h2>
           </div>
           <div className="impact-grid">
             <div className="before-after" data-before-after>
-              <div className="before-layer" />
               <div className="after-layer" />
-              <input type="range" min="12" max="88" defaultValue="56" aria-label="Compare restoration before and after" />
-              <span className="label before-label">Before</span>
-              <span className="label after-label">After</span>
+              <div className="before-layer" />
+              <input type="range" min="12" max="88" defaultValue="50" aria-label="Comparar restauración antes y después" />
+              <span className="label before-label">Antes</span>
+              <span className="label after-label">Después</span>
             </div>
             <aside className="tree-feed" aria-label="Tree coordinate feed">
-              <div className="feed-title"><span />Inventory</div>
+              <div className="feed-title"><span />Inventario</div>
               <div className="feed-window">
                 <ul>
                   {[...coordinates, ...coordinates].map(([id, meta], index) => (
@@ -163,61 +163,61 @@ export default function Home() {
             </aside>
           </div>
           <div className="metrics">
-            <div><strong>400+</strong><span>trees planted</span></div>
-            <div><strong>38.5t</strong><span>CO2 restored</span></div>
-            <div><strong>12</strong><span>active zones</span></div>
-            <div><strong>1:1</strong><span>tour-to-tree goal</span></div>
+            <div><strong>400+</strong><span>árboles plantados</span></div>
+            <div><strong>38.5t</strong><span>CO2 restaurado</span></div>
+            <div><strong>12</strong><span>zonas activas</span></div>
+            <div><strong>1:1</strong><span>meta tour-árbol</span></div>
           </div>
         </section>
 
         <section className="compact-section tech" id="technology">
           <div className="section-title">
-            <p className="kicker">Technology</p>
-            <h2>Field data, ready for trust.</h2>
+            <p className="kicker">Tecnología</p>
+            <h2>Datos de campo listos para generar confianza.</h2>
           </div>
           <div className="tech-grid">
             <div className="vision-card">
               <div className="scan-scene">
-                <div className="scan-box box-one"><span>health 92%</span></div>
-                <div className="scan-box box-two"><span>growth +14cm</span></div>
-                <div className="scan-box box-three"><span>species id</span></div>
+                <div className="scan-box box-one"><span>salud 92%</span></div>
+                <div className="scan-box box-two"><span>crece +14cm</span></div>
+                <div className="scan-box box-three"><span>especie id</span></div>
               </div>
             </div>
             <div className="mini-stack">
-              <article><strong>ML inventory</strong><span>Camera capture estimates tree health, growth, and duplicate risk.</span></article>
-              <article><strong>Carbon markets</strong><span>Verified restoration data prepares future carbon and impact records.</span></article>
-              <article><strong>NFT sponsorship</strong><span>Visitors can adopt a tree and receive a digital proof of stewardship.</span></article>
+              <article><strong>Inventario ML</strong><span>La cámara estima salud, crecimiento y riesgo de duplicados por árbol.</span></article>
+              <article><strong>Bonos de carbono</strong><span>Los datos verificados preparan futuros registros de carbono e impacto.</span></article>
+              <article><strong>Padrinazgo NFT</strong><span>Visitantes podrán adoptar un árbol y recibir una prueba digital de cuidado.</span></article>
             </div>
           </div>
         </section>
 
         <section className="compact-section reserve" id="reserve">
           <div className="reserve-copy">
-            <p className="kicker">RSVP</p>
-            <h2>Reserve a field day.</h2>
-            <p>Send your dates, group size, or sponsorship interest. We will confirm the field details.</p>
+            <p className="kicker">Reservas</p>
+            <h2>Reserva tu experiencia.</h2>
+            <p>Envíanos tus fechas, tamaño de grupo o interés de patrocinio. Confirmaremos los detalles de campo.</p>
             <div className="contact-icons">
               <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><span>◎</span> Instagram</a>
               <a href="mailto:hola@inlandmex.com" aria-label="Email Inland Mex"><span>@</span> Email</a>
-              <a href="#top" aria-label="Back to top"><span>↑</span> Top</a>
+              <a href="#top" aria-label="Volver al inicio"><span>↑</span> Inicio</a>
             </div>
           </div>
           <form className="reserve-form">
-            <label>Name<input type="text" name="name" placeholder="Your name" /></label>
-            <label>Email<input type="email" name="email" placeholder="you@example.com" /></label>
-            <label>Interest<select name="interest"><option>Book a volcano hike</option><option>Sponsor a tree</option><option>Partner with Inland Mex</option></select></label>
-            <label>Message<textarea name="message" rows="2" placeholder="Dates, group size, or notes" /></label>
-            <button type="submit">Send request</button>
+            <label>Nombre<input type="text" name="name" placeholder="Tu nombre" /></label>
+            <label>Email<input type="email" name="email" placeholder="tu@email.com" /></label>
+            <label>Interés<select name="interest"><option>Reservar una ruta</option><option>Apadrinar un árbol</option><option>Aliarme con Inland Mex</option></select></label>
+            <label>Mensaje<textarea name="message" rows="2" placeholder="Fechas, grupo o notas" /></label>
+            <button type="submit">Enviar solicitud</button>
           </form>
         </section>
       </main>
 
       <footer className="footer">
         <nav aria-label="Footer navigation">
-          <a href="#experiences">Experiences</a>
-          <a href="#impact">Impact</a>
-          <a href="#technology">Technology</a>
-          <a href="#reserve">Reserve</a>
+          <a href="#experiences">Experiencias</a>
+          <a href="#impact">Impacto</a>
+          <a href="#technology">Tecnología</a>
+          <a href="#reserve">Reservas</a>
         </nav>
         <p>777 130 9737 · @Inlandmex</p>
         <small>© 2026 Inland Mex</small>
