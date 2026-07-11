@@ -1,8 +1,8 @@
 :root {
   --ink: #161914;
   --paper: #f7f2e8;
-  --glass: rgba(247, 242, 232, 0.62);
-  --glass-strong: rgba(247, 242, 232, 0.78);
+  --glass: rgba(247, 242, 232, 0.34);
+  --glass-strong: rgba(247, 242, 232, 0.48);
   --deep: rgba(14, 17, 12, 0.82);
   --leaf: #607d46;
   --fern: #a7be78;
@@ -30,12 +30,12 @@ body {
 
 body::before {
   background-image:
-    linear-gradient(rgba(247, 242, 232, 0.18), rgba(247, 242, 232, 0.18)),
+    linear-gradient(rgba(247, 242, 232, 0.04), rgba(247, 242, 232, 0.1)),
     url("/volcan-iztapalapa-bg.jpg");
   background-position: center;
   background-size: cover;
   content: "";
-  filter: blur(22px) saturate(0.9);
+  filter: blur(18px) saturate(1.04);
   inset: -38px;
   position: fixed;
   transform: scale(1.06);
@@ -44,9 +44,9 @@ body::before {
 
 body::after {
   background:
-    radial-gradient(circle at 50% 20%, rgba(247, 242, 232, 0.4), transparent 42%),
-    linear-gradient(rgba(247, 242, 232, 0.46), rgba(247, 242, 232, 0.58));
-  backdrop-filter: blur(18px);
+    radial-gradient(circle at 50% 18%, rgba(247, 242, 232, 0.18), transparent 44%),
+    linear-gradient(rgba(247, 242, 232, 0.2), rgba(247, 242, 232, 0.28));
+  backdrop-filter: blur(9px);
   content: "";
   inset: 0;
   pointer-events: none;
@@ -160,8 +160,8 @@ textarea {
 }
 
 .glass-backdrop {
-  background: rgba(247, 242, 232, 0.18);
-  backdrop-filter: blur(18px) saturate(0.9);
+  background: rgba(247, 242, 232, 0.1);
+  backdrop-filter: blur(10px) saturate(0.98);
   inset: 0;
   position: absolute;
   z-index: 0;
@@ -293,19 +293,19 @@ p {
 .compact-section,
 .mission-banner,
 .footer {
-  backdrop-filter: blur(18px) saturate(0.92);
+  backdrop-filter: blur(12px) saturate(0.98);
 }
 
 .compact-section {
   background: var(--glass);
-  border: 1px solid rgba(247, 242, 232, 0.46);
+  border: 1px solid rgba(247, 242, 232, 0.36);
   color: var(--ink);
   margin: 14px auto;
   min-height: 0;
   overflow: hidden;
   padding: clamp(24px, 4vw, 42px) clamp(18px, 4vw, 52px);
   position: relative;
-  width: min(1080px, calc(100vw - 28px));
+  width: min(1040px, calc(100vw - 28px));
 }
 
 .section-title {
@@ -374,7 +374,7 @@ p {
 }
 
 .detail-box {
-  background: rgba(247, 242, 232, 0.58);
+  background: rgba(247, 242, 232, 0.4);
   border: 1px solid var(--line);
   display: grid;
   gap: 18px;
@@ -442,7 +442,7 @@ p {
 .impact-grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: minmax(0, 1fr) 245px;
+  grid-template-columns: minmax(0, 1fr) 230px;
   position: relative;
   z-index: 1;
 }
@@ -515,7 +515,7 @@ p {
 .mini-stack article,
 .reserve-form,
 .contact-icons a {
-  background: rgba(247, 242, 232, 0.54);
+  background: rgba(247, 242, 232, 0.38);
   border: 1px solid var(--line);
 }
 
@@ -609,14 +609,14 @@ p {
 .tech-grid {
   display: grid;
   gap: 14px;
-  grid-template-columns: minmax(0, 1fr) 330px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
   position: relative;
   z-index: 1;
 }
 
 .vision-card {
   border: 1px solid rgba(247, 242, 232, 0.42);
-  min-height: 300px;
+  min-height: 260px;
   padding: 10px;
 }
 
@@ -627,7 +627,7 @@ p {
   background-position: center;
   background-size: cover;
   height: 100%;
-  min-height: 280px;
+  min-height: 240px;
   position: relative;
 }
 
@@ -674,14 +674,21 @@ p {
 .mini-stack article {
   display: grid;
   gap: 6px;
-  padding: 12px;
+  min-height: 72px;
+  padding: 11px 12px;
 }
 
 .reserve {
   align-content: center;
   display: grid;
-  gap: 18px;
-  grid-template-columns: minmax(0, 0.8fr) minmax(300px, 420px);
+  gap: 14px;
+  grid-template-columns: minmax(0, 0.72fr) minmax(280px, 390px);
+  padding-bottom: 24px;
+  padding-top: 24px;
+}
+
+.reserve-copy h2 {
+  font-size: clamp(1.45rem, 3vw, 2.6rem);
 }
 
 .contact-icons {
@@ -714,8 +721,8 @@ p {
 
 .reserve-form {
   display: grid;
-  gap: 8px;
-  padding: 12px;
+  gap: 6px;
+  padding: 10px;
 }
 
 .reserve-form label {
@@ -723,7 +730,7 @@ p {
   display: grid;
   font-size: 0.66rem;
   font-weight: 900;
-  gap: 6px;
+  gap: 4px;
   text-transform: uppercase;
 }
 
@@ -734,7 +741,7 @@ p {
   border: 1px solid var(--line);
   color: var(--ink);
   outline: none;
-  padding: 8px 10px;
+  padding: 7px 9px;
   width: 100%;
 }
 
@@ -744,12 +751,12 @@ p {
 
 .reserve-form button {
   justify-self: start;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .footer {
   align-items: center;
-  background: rgba(18, 20, 14, 0.72);
+  background: rgba(18, 20, 14, 0.56);
   border-top: 1px solid var(--light-line);
   color: var(--paper);
   display: flex;
@@ -757,7 +764,7 @@ p {
   justify-content: space-between;
   margin-top: 14px;
   overflow: hidden;
-  padding: 14px clamp(18px, 5vw, 56px);
+  padding: 10px clamp(18px, 5vw, 48px);
   position: relative;
 }
 
@@ -777,40 +784,37 @@ p {
 
 .footer p {
   font-family: "Instrument Serif", Georgia, serif;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   margin: 0;
 }
 
 @media (max-width: 900px) {
-  .orb-row,
-  .impact-grid,
-  .metrics,
-  .tech-grid,
-  .reserve,
-  .detail-box {
-    grid-template-columns: 1fr;
+  .compact-section {
+    width: min(860px, calc(100vw - 20px));
+  }
+
+  .orb-row {
+    grid-template-columns: repeat(3, minmax(84px, 1fr));
+  }
+
+  .tour-orb p {
+    font-size: 0.68rem;
   }
 
   .impact-grid {
-    margin: 0 auto;
-    max-width: 680px;
+    grid-template-columns: minmax(0, 1fr) 210px;
   }
 
   .feed-window {
-    height: 170px;
+    height: 178px;
   }
 
-  .vision-card {
-    min-height: 320px;
+  .tech-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(230px, 0.7fr);
   }
 
-  .scan-scene {
-    min-height: 300px;
-  }
-
-  .footer {
-    align-items: flex-start;
-    flex-direction: column;
+  .reserve {
+    grid-template-columns: minmax(0, 0.65fr) minmax(260px, 360px);
   }
 }
 
@@ -848,24 +852,52 @@ p {
   .section-title h2,
   .mission-banner h2,
   .reserve-copy h2 {
-    font-size: clamp(2rem, 12vw, 3.4rem);
+    font-size: clamp(1.55rem, 9vw, 2.55rem);
   }
 
   .compact-section {
     min-height: auto;
-    padding-bottom: 42px;
-    padding-top: 42px;
+    padding-bottom: 26px;
+    padding-top: 26px;
   }
 
   .orb-row {
-    gap: 24px;
+    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .orb-image {
+    height: clamp(72px, 24vw, 96px);
+    width: clamp(72px, 24vw, 96px);
+  }
+
+  .tour-orb h3 {
+    font-size: 1rem;
+  }
+
+  .tour-orb p {
+    font-size: 0.62rem;
+    line-height: 1.35;
+  }
+
+  .impact-grid,
+  .tech-grid,
+  .reserve,
+  .detail-box {
+    grid-template-columns: 1fr;
   }
 
   .before-after {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 16 / 10;
   }
 
   .metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }

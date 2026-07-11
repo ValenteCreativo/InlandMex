@@ -143,10 +143,9 @@ export default function Home() {
               </div>
             </div>
             <div className="mini-stack">
-              <article><strong>ML inventory</strong><span>Camera capture estimates health, growth, and duplicate risk.</span></article>
-              <article><strong>Turso database</strong><span>Every inspection syncs to a project-owned edge database.</span></article>
-              <article><strong>Carbon signals</strong><span>Impact records prepare future carbon and restoration reporting.</span></article>
-              <article><strong>Tokenized trees</strong><span>Sponsors can adopt a tree and receive a digital proof.</span></article>
+              <article><strong>ML inventory</strong><span>Camera capture estimates tree health, growth, and duplicate risk.</span></article>
+              <article><strong>Carbon markets</strong><span>Verified restoration data prepares future carbon and impact records.</span></article>
+              <article><strong>NFT sponsorship</strong><span>Visitors can adopt a tree and receive a digital proof of stewardship.</span></article>
             </div>
           </div>
         </section>
@@ -166,7 +165,7 @@ export default function Home() {
             <label>Name<input type="text" name="name" placeholder="Your name" /></label>
             <label>Email<input type="email" name="email" placeholder="you@example.com" /></label>
             <label>Interest<select name="interest"><option>Book a volcano hike</option><option>Sponsor a tree</option><option>Partner with Inland Mex</option></select></label>
-            <label>Message<textarea name="message" rows="3" placeholder="Dates, group size, or notes" /></label>
+            <label>Message<textarea name="message" rows="2" placeholder="Dates, group size, or notes" /></label>
             <button type="submit">Send request</button>
           </form>
         </section>

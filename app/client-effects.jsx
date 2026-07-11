@@ -26,14 +26,16 @@ export default function ClientEffects() {
       const lazyVideos = [...document.querySelectorAll(".lazy-video")];
 
       const prepareVideo = (video) => {
+        if (video.dataset.prepared === "true") return;
+        video.dataset.prepared = "true";
         video.muted = true;
         video.playsInline = true;
-        video.loop = true;
+        video.loop = false;
 
         const seamlessLoop = () => {
           if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-          if (video.currentTime >= video.duration - 0.22) {
-            video.currentTime = 0.08;
+          if (video.currentTime >= video.duration - 0.5) {
+            video.currentTime = 0.12;
           }
         };
 
@@ -42,10 +44,13 @@ export default function ClientEffects() {
           if (playPromise?.catch) playPromise.catch(() => {});
         };
 
+        video.addEventListener("loadedmetadata", () => {
+          if (video.currentTime < 0.1) video.currentTime = 0.12;
+        });
         video.addEventListener("canplay", keepPlaying, { once: true });
         video.addEventListener("timeupdate", seamlessLoop);
         video.addEventListener("ended", () => {
-          video.currentTime = 0.08;
+          video.currentTime = 0.12;
           keepPlaying();
         });
         video.addEventListener("stalled", keepPlaying);
@@ -76,6 +81,17 @@ export default function ClientEffects() {
       );
 
       lazyVideos.forEach((video) => observer.observe(video));
+
+      const monitorLoop = () => {
+        document.querySelectorAll("video[data-prepared='true']").forEach((video) => {
+          if (Number.isFinite(video.duration) && video.duration > 0 && video.currentTime >= video.duration - 0.5) {
+            video.currentTime = 0.12;
+          }
+        });
+        window.requestAnimationFrame(monitorLoop);
+      };
+
+      window.requestAnimationFrame(monitorLoop);
     };
 
     const initCompare = () => {
