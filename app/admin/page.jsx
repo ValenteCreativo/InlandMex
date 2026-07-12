@@ -38,7 +38,8 @@ async function getAdminData() {
       db.execute({
         sql: `SELECT public_code, species, zone, latitude, longitude, health_status, growth_cm, updated_at
               FROM trees
-              ORDER BY CASE WHEN public_code LIKE 'IMX-Beta-%' THEN 0 ELSE 1 END, public_code
+              WHERE public_code NOT IN ('IMX-Beta-02', 'IMX-Beta-03')
+              ORDER BY CASE WHEN public_code = 'IMX-Beta-01' THEN 0 ELSE 1 END, public_code
               LIMIT 80`,
       }),
     ]);
@@ -166,6 +167,7 @@ export default async function AdminPage() {
     if (tree.health_status && tree.health_status !== "unknown") return tree.health_status;
     return ["saludable", "maduro", "observación", "joven"][index % 4];
   };
+  const displaySpecies = (tree) => tree.public_code === "IMX-Beta-01" ? "Violeta Africana" : tree.species;
 
   return (
     <main className="admin-shell admin-quiet">
@@ -200,7 +202,7 @@ export default async function AdminPage() {
             {inventoryTrees.map((tree, index) => (
               <a href={`/plantas/${tree.public_code}`} key={tree.public_code}>
                 <span>{tree.public_code}</span>
-                <strong>{tree.species}</strong>
+                <strong>{displaySpecies(tree)}</strong>
                 <em>{displayState(tree, index)}</em>
                 <small>{tree.latitude ? `${Number(tree.latitude).toFixed(5)}, ${Number(tree.longitude).toFixed(5)}` : "ubicación pendiente"}</small>
               </a>

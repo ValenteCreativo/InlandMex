@@ -9,20 +9,20 @@ const demoProfiles = [
   {
     code: "IMX-Beta-01",
     id: "tree-imx-beta-01",
-    species: "Fresno mexicano",
-    scientific: "Fraxinus uhdei",
+    species: "Violeta Africana",
+    scientific: "Saintpaulia ionantha",
     health: "young",
-    label: "Joven · saludable",
-    score: 0.94,
-    growth: 42,
+    label: "Joven · hidratada · saludable",
+    score: 0.96,
+    growth: 18,
     plantedBy: "José Varela",
     plantedAt: "2026-07-12T10:00:00.000Z",
     signals: {
-      height: "42 cm",
-      growth: "alto",
-      hydration: "estable",
-      canopy: "inicial",
-      recommendation: "seguimiento mensual",
+      height: "18 cm",
+      growth: "activo",
+      hydration: "hidratada",
+      canopy: "compacta",
+      recommendation: "luz indirecta y riego moderado",
     },
   },
   {
@@ -87,13 +87,7 @@ export async function POST(request) {
   const db = getDb();
   const latitude = Number.isFinite(Number(body.latitude)) ? Number(body.latitude) : 19.43213;
   const longitude = Number.isFinite(Number(body.longitude)) ? Number(body.longitude) : -99.13323;
-  const requestedIndex = Number(body.demoIndex);
-  let profileIndex = Number.isFinite(requestedIndex) ? requestedIndex : 0;
-  if (!Number.isFinite(requestedIndex)) {
-    const countResult = await db.execute("SELECT COUNT(*) AS count FROM trees WHERE notes LIKE '%hackathon-demo-v1%'");
-    profileIndex = Number(countResult.rows[0]?.count || 0);
-  }
-  const profile = demoProfiles[Math.abs(profileIndex) % demoProfiles.length];
+  const profile = demoProfiles[0];
   const treeId = profile.id;
   const publicCode = profile.code;
   const createdAt = new Date().toISOString();

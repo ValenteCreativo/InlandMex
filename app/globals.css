@@ -1899,6 +1899,31 @@ textarea {
   width: 5px;
 }
 
+.scanner-stealth-toggle {
+  background: transparent;
+  border: 0;
+  color: #a4bf76;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 900;
+  justify-self: end;
+  letter-spacing: 0.08em;
+  padding: 10px 0 10px 14px;
+}
+
+.scanner-stealth-toggle.off {
+  color: rgba(246, 239, 226, 0.32);
+}
+
+.scanner-shell .vision-label.no-plant {
+  border-color: rgba(255, 173, 150, 0.34);
+  color: #ffad96;
+}
+
+.scanner-shell .vision-label.no-plant span {
+  background: #ffad96;
+}
+
 .scanner-shell .scanner-controls {
   padding: 14px 18px 18px;
 }

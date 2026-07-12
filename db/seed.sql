@@ -63,17 +63,17 @@ VALUES
   (
     'tree-imx-beta-01',
     'IMX-Beta-01',
-    'Fresno mexicano',
+    'Violeta Africana',
     19.43213,
     -99.13323,
     'Izazaga 8, Centro Histórico, Ciudad de México',
     '2026-07-12T10:00:00.000Z',
     'young',
-    42,
+    18,
     '/fotos/website/3.png',
     '0xbeta01',
     'IMX-Beta-01',
-    '{"schema":"beta-profile-v1","scientific_name":"Fraxinus uhdei","planted_by":"José Varela","confidence":0.94,"address":"Izazaga 8, Centro Histórico, Ciudad de México","reading_label":"Lectura visual reciente","visual_signals":{"height":"42 cm","growth":"alto","hydration":"estable","canopy":"inicial","recommendation":"seguimiento mensual"},"proof_network":"Inland Proof Ledger · Beta"}'
+    '{"schema":"beta-profile-v1","scientific_name":"Saintpaulia ionantha","planted_by":"José Varela","confidence":0.96,"address":"Izazaga 8, Centro Histórico, Ciudad de México","reading_label":"Lectura visual reciente","visual_signals":{"height":"18 cm","growth":"activo","hydration":"hidratada","canopy":"compacta","recommendation":"luz indirecta y riego moderado"},"proof_network":"Inland Proof Ledger · Beta"}'
   ),
   (
     'tree-imx-beta-02',

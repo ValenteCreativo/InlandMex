@@ -24,13 +24,8 @@ export default function PlantScanner() {
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
   const [scanReady, setScanReady] = useState(true);
+  const [plantDetected, setPlantDetected] = useState(true);
   const [signalIndex, setSignalIndex] = useState(0);
-  const [demoIndex, setDemoIndex] = useState(0);
-
-  useEffect(() => {
-    const saved = Number(window.localStorage.getItem("imx-demo-sequence") || 0);
-    if (Number.isFinite(saved)) setDemoIndex(saved % 3);
-  }, []);
 
   useEffect(() => {
     const signalTimer = window.setInterval(() => setSignalIndex((value) => (value + 1) % signalFrames.length), 900);
@@ -78,6 +73,10 @@ export default function PlantScanner() {
 
   async function registerPlant() {
     if (!photo) return;
+    if (!plantDetected) {
+      setError("No se ha detectado planta.");
+      return;
+    }
     try {
       setError("");
       setStage("locating");
@@ -88,13 +87,10 @@ export default function PlantScanner() {
       const response = await fetch("/api/admin/register-plant", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ image: photo, demoIndex, ...location }),
+        body: JSON.stringify({ image: photo, demoIndex: 0, ...location }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "No se pudo registrar la planta.");
-      const nextIndex = (demoIndex + 1) % 3;
-      window.localStorage.setItem("imx-demo-sequence", String(nextIndex));
-      setDemoIndex(nextIndex);
       setResult(data);
     } catch (err) {
       setError(err.message);
@@ -141,10 +137,24 @@ export default function PlantScanner() {
 
   return (
     <main className="scanner-shell">
-      <div className="scanner-top"><a href="/admin" aria-label="Volver">←</a><span>INLAND VISION</span><span>LIVE</span></div>
+      <div className="scanner-top">
+        <a href="/admin" aria-label="Volver">←</a>
+        <span>INLAND VISION</span>
+        <button
+          aria-label="Cambiar detección"
+          className={`scanner-stealth-toggle ${plantDetected ? "" : "off"}`}
+          onClick={() => {
+            setPlantDetected((value) => !value);
+            setError("");
+          }}
+          type="button"
+        >
+          LIVE
+        </button>
+      </div>
       <section className="camera-view">
         {photo ? <img src={photo} alt="Captura de la planta" /> : <video ref={videoRef} autoPlay muted playsInline />}
-        {scanReady && (
+        {scanReady && plantDetected && (
           <div className="scan-reticle">
             <div className="tracking-box tracking-main"><span>{signalFrames[signalIndex][0]}</span></div>
             <div className="tracking-box tracking-leaf"><span>{signalFrames[signalIndex][1]}</span></div>
@@ -152,7 +162,7 @@ export default function PlantScanner() {
             <div className="tracking-box tracking-ghost" />
           </div>
         )}
-        <div className="vision-label"><span /> {photo ? "FRAME" : "TRACKING"}</div>
+        <div className={`vision-label ${plantDetected ? "" : "no-plant"}`}><span /> {plantDetected ? (photo ? "FRAME" : "TRACKING") : "NO SE HA DETECTADO PLANTA"}</div>
       </section>
       <section className="scanner-controls">
         <p>{stages[stage]}</p>
@@ -165,7 +175,7 @@ export default function PlantScanner() {
             <button className="scan-secondary" onClick={() => setPhoto("")} disabled={stage !== "ready"}>Repetir foto</button>
           </>
         ) : (
-          <button className="shutter" onClick={capture} aria-label="Tomar foto"><span /></button>
+          <button className="shutter" onClick={capture} disabled={!plantDetected} aria-label="Tomar foto"><span /></button>
         )}
       </section>
     </main>
