@@ -4,7 +4,7 @@ import { createHash } from "crypto";
 import { getDb } from "../../lib/db";
 
 export const metadata = {
-  title: "Admin Fase 2",
+  title: "Admin · Inland Mex",
 };
 
 export const dynamic = "force-dynamic";
