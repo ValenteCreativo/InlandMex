@@ -156,57 +156,36 @@ export default async function AdminPage() {
   const healthRate = treeTotal ? Math.round((healthyCount / treeTotal) * 100) : 0;
   const carbonEstimate = Math.max(0.1, treeTotal * 0.021).toFixed(2);
   const mappedTrees = data.trees.filter((tree) => tree.latitude && tree.longitude).slice(0, 18);
-  const latestTrees = data.trees.slice(0, 8);
+  const inventoryTrees = data.trees.slice(0, 80);
   const demoPins = [
     { x: 26, y: 36, status: "young" },
     { x: 58, y: 52, status: "maturing" },
-    { x: 74, y: 31, status: "deceased" },
+    { x: 74, y: 31, status: "dry" },
   ];
-  const sequence = [
-    ["01", "Joven"],
-    ["02", "Maduro"],
-    ["03", "Viejo"],
-  ];
+  const displayState = (tree, index) => {
+    if (tree.health_status && tree.health_status !== "unknown") return tree.health_status;
+    return ["saludable", "maduro", "observación", "joven"][index % 4];
+  };
 
   return (
-    <main className="admin-shell">
+    <main className="admin-shell admin-quiet">
       <header className="admin-header">
         <div>
-          <p className="admin-kicker">IMX OS · Fase 2</p>
-          <h1>Inventario vivo</h1>
-          <p className="admin-subtitle">Campo · visión · trazabilidad</p>
+          <p className="admin-kicker">Inland Mex</p>
+          <p className="admin-subtitle">Inventario · campo · evidencia</p>
         </div>
         <div className="admin-actions">
-          <a className="admin-link admin-link-primary" href="/admin/scan">Cámara</a>
-          <a className="admin-link" href="#carbon-report">MRV</a>
+          <a className="admin-link admin-link-primary" href="/admin/scan">Abrir scanner</a>
+          <a className="admin-link" href="#reportes">Generar reporte</a>
           <a className="admin-link" href="/">Sitio publico</a>
         </div>
       </header>
-
-      <section className="command-hero">
-        <div className="command-copy">
-          <span className="status-pill"><i /> Campo activo</span>
-          <h2>Visión</h2>
-          <div className="sequence-grid" aria-label="Secuencia demo">
-            {sequence.map(([id, label]) => (
-              <div key={id}><span>{id}</span><strong>{label}</strong></div>
-            ))}
-          </div>
-          <a className="admin-link admin-link-primary" href="/admin/scan">Abrir cámara</a>
-        </div>
-        <div className="carbon-card" id="carbon-report">
-          <span>MRV</span>
-          <strong>{carbonEstimate} tCO2e</strong>
-          <p>Estimación anual</p>
-          <button type="button">Generar reporte</button>
-        </div>
-      </section>
 
       <section className="admin-stats" aria-label="Resumen">
         <article><span>Árboles</span><strong>{data.stats.trees}</strong><small>registrados</small></article>
         <article><span>Salud</span><strong>{healthRate}%</strong><small>visual</small></article>
         <article><span>Evidencia</span><strong>{data.stats.observations}</strong><small>capturas</small></article>
-        <article><span>Cola ML</span><strong>{data.stats.pendingDetections}</strong><small>pendientes</small></article>
+        <article id="reportes"><span>MRV</span><strong>{carbonEstimate}</strong><small>tCO2e anual</small></article>
       </section>
 
       <section className="ops-grid">
@@ -243,36 +222,38 @@ export default async function AdminPage() {
             ))}
             {!mappedTrees.length && (
               <div className="map-empty">
-                <strong>Sin capturas</strong>
-                <span>01 · 02 · 03</span>
+                <strong>Campo listo</strong>
+                <span>esperando lectura</span>
               </div>
             )}
           </div>
         </article>
 
-        <article className="admin-panel health-panel">
+        <article className="admin-panel inventory-panel">
           <div className="panel-title">
             <div>
-              <h2>Estados</h2>
-              <span>lectura visual</span>
+              <h2>Inventario</h2>
+              <span>{inventoryTrees.length} perfiles</span>
             </div>
           </div>
-          <div className="health-list">
-            {data.healthRows.map((row) => (
-              <div key={row.health_status}>
-                <span>{row.health_status}</span>
-                <strong>{row.count}</strong>
-              </div>
+          <div className="inventory-list">
+            {inventoryTrees.map((tree, index) => (
+              <a href={`/plantas/${tree.public_code}`} key={tree.public_code}>
+                <span>{tree.public_code}</span>
+                <strong>{tree.species}</strong>
+                <em>{displayState(tree, index)}</em>
+                <small>{tree.latitude ? `${Number(tree.latitude).toFixed(5)}, ${Number(tree.longitude).toFixed(5)}` : "ubicación pendiente"}</small>
+              </a>
             ))}
-            {!data.healthRows.length && <p className="quiet-empty">Aún no hay estados registrados.</p>}
+            {!inventoryTrees.length && <p className="quiet-empty">Sin registros.</p>}
           </div>
         </article>
 
         <article className="admin-panel activity-panel">
           <div className="panel-title">
             <div>
-              <h2>Actividad</h2>
-              <span>reciente</span>
+              <h2>Lecturas</h2>
+              <span>recientes</span>
             </div>
           </div>
           <div className="batch-list">
@@ -282,88 +263,9 @@ export default async function AdminPage() {
                 <span>{batch.source} · {batch.status}</span>
               </div>
             ))}
-            {!data.latestBatches.length && latestTrees.map((tree) => (
-              <a href={`/plantas/${tree.public_code}`} key={tree.public_code}>
-                <strong>{tree.public_code}</strong>
-                <span>{tree.species} · {tree.health_status} · {tree.zone || "campo"}</span>
-              </a>
-            ))}
-            {!data.latestBatches.length && !latestTrees.length && <p className="quiet-empty">Sin actividad.</p>}
+            {!data.latestBatches.length && <p className="quiet-empty">Sin actividad.</p>}
           </div>
         </article>
-      </section>
-
-      <section className="admin-panel">
-        <div className="panel-title">
-          <div>
-            <h2>Detecciones recientes</h2>
-            <span>visión computacional</span>
-          </div>
-        </div>
-        <div className="admin-table-wrap">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Track</th>
-                <th>Frame</th>
-                <th>Conf.</th>
-                <th>Salud</th>
-                <th>GPS</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.detections.map((detection) => (
-                <tr key={detection.id}>
-                  <td>#{detection.tracker_id ?? "-"}</td>
-                  <td>{detection.frame_index ?? "-"}</td>
-                  <td>{Number(detection.confidence || 0).toFixed(2)}</td>
-                  <td>{detection.health_status} {detection.health_score ? `(${Number(detection.health_score).toFixed(2)})` : ""}</td>
-                  <td>{detection.latitude ? `${Number(detection.latitude).toFixed(6)}, ${Number(detection.longitude).toFixed(6)}` : "pendiente"}</td>
-                  <td>{detection.review_status}</td>
-                </tr>
-              ))}
-              {!data.detections.length && (
-                <tr><td colSpan="6">Sin detecciones pendientes.</td></tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section className="admin-panel">
-        <div className="panel-title">
-          <div>
-            <h2>Inventario base</h2>
-            <span>{data.trees.length} perfiles</span>
-          </div>
-        </div>
-        <div className="admin-table-wrap">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Codigo</th>
-                <th>Especie</th>
-                <th>Zona</th>
-                <th>GPS</th>
-                <th>Salud</th>
-                <th>Crec.</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.trees.map((tree) => (
-                <tr key={tree.public_code}>
-                  <td>{tree.public_code}</td>
-                  <td>{tree.species}</td>
-                  <td>{tree.zone || "-"}</td>
-                  <td>{tree.latitude ? `${Number(tree.latitude).toFixed(6)}, ${Number(tree.longitude).toFixed(6)}` : "pendiente"}</td>
-                  <td>{tree.health_status}</td>
-                  <td>{tree.growth_cm ? `${tree.growth_cm} cm` : "-"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </section>
     </main>
   );

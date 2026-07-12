@@ -58,6 +58,66 @@ ON CONFLICT(public_code) DO UPDATE SET
   inventory_batch_id = excluded.inventory_batch_id,
   notes = excluded.notes;
 
+INSERT INTO trees (id, public_code, species, latitude, longitude, zone, planted_at, health_status, growth_cm, image_url, onchain_tx_hash, token_id, notes)
+VALUES
+  (
+    'tree-imx-beta-01',
+    'IMX-Beta-01',
+    'Fresno mexicano',
+    19.43213,
+    -99.13323,
+    'Izazaga 8, Centro Histórico, Ciudad de México',
+    '2026-07-12T10:00:00.000Z',
+    'young',
+    42,
+    '/fotos/website/3.png',
+    '0xbeta01',
+    'IMX-Beta-01',
+    '{"schema":"beta-profile-v1","scientific_name":"Fraxinus uhdei","planted_by":"Valente / Inland Mex","confidence":0.94,"address":"Izazaga 8, Centro Histórico, Ciudad de México","reading_label":"Lectura visual reciente","visual_signals":{"height":"42 cm","growth":"alto","hydration":"estable","canopy":"inicial","recommendation":"seguimiento mensual"},"proof_network":"Inland Proof Ledger · Beta"}'
+  ),
+  (
+    'tree-imx-beta-02',
+    'IMX-Beta-02',
+    'Jacaranda',
+    19.43213,
+    -99.13323,
+    'Izazaga 8, Centro Histórico, Ciudad de México',
+    '2025-08-18T10:00:00.000Z',
+    'mature',
+    180,
+    '/fotos/website/4.png',
+    '0xbeta02',
+    'IMX-Beta-02',
+    '{"schema":"beta-profile-v1","scientific_name":"Jacaranda mimosifolia","planted_by":"Brigada Inland Mex","confidence":0.91,"address":"Izazaga 8, Centro Histórico, Ciudad de México","reading_label":"Lectura visual reciente","visual_signals":{"height":"1.8 m","growth":"consolidado","hydration":"estable","canopy":"alta","recommendation":"monitoreo de copa"},"proof_network":"Inland Proof Ledger · Beta"}'
+  ),
+  (
+    'tree-imx-beta-03',
+    'IMX-Beta-03',
+    'Encino',
+    19.43213,
+    -99.13323,
+    'Izazaga 8, Centro Histórico, Ciudad de México',
+    '2025-05-04T10:00:00.000Z',
+    'dry',
+    54,
+    '/fotos/website/5.png',
+    '0xbeta03',
+    'IMX-Beta-03',
+    '{"schema":"beta-profile-v1","scientific_name":"Quercus rugosa","planted_by":"Comunidad Inland Mex","confidence":0.89,"address":"Izazaga 8, Centro Histórico, Ciudad de México","reading_label":"Lectura visual reciente","visual_signals":{"height":"54 cm","growth":"detenido","hydration":"crítica","canopy":"ausente","recommendation":"reemplazo recomendado"},"proof_network":"Inland Proof Ledger · Beta"}'
+  )
+ON CONFLICT(public_code) DO UPDATE SET
+  species = excluded.species,
+  latitude = excluded.latitude,
+  longitude = excluded.longitude,
+  zone = excluded.zone,
+  planted_at = excluded.planted_at,
+  health_status = excluded.health_status,
+  growth_cm = excluded.growth_cm,
+  image_url = CASE WHEN trees.image_url IS NULL OR trees.image_url LIKE '/fotos/%' THEN excluded.image_url ELSE trees.image_url END,
+  onchain_tx_hash = CASE WHEN trees.onchain_tx_hash IS NULL OR trees.onchain_tx_hash LIKE '0xbeta%' THEN excluded.onchain_tx_hash ELSE trees.onchain_tx_hash END,
+  token_id = excluded.token_id,
+  notes = CASE WHEN trees.notes IS NULL OR trees.notes LIKE '%beta-profile-v1%' THEN excluded.notes ELSE trees.notes END;
+
 INSERT INTO impact_stats (key, label, value, unit, sort_order)
 VALUES
   ('trees_planted', 'Árboles plantados', '400+', NULL, 1),

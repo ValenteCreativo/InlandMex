@@ -1,13 +1,152 @@
 import { notFound } from "next/navigation";
+import { createHash } from "crypto";
 import { getDb } from "../../../lib/db";
 
 export const dynamic = "force-dynamic";
 
-const healthLabels = {
-  young: "Joven · saludable",
-  maturing: "En maduración · saludable",
-  deceased: "Sin vida · requiere reemplazo",
+const betaProfiles = {
+  "IMX-Beta-01": {
+    id: "tree-imx-beta-01",
+    public_code: "IMX-Beta-01",
+    species: "Fresno mexicano",
+    health_status: "young",
+    growth_cm: 42,
+    latitude: 19.43213,
+    longitude: -99.13323,
+    zone: "Izazaga 8, Centro Histórico, Ciudad de México",
+    planted_at: "2026-07-12T10:00:00.000Z",
+    image_url: "/fotos/website/3.png",
+    notes: JSON.stringify({
+      scientific_name: "Fraxinus uhdei",
+      planted_by: "Valente / Inland Mex",
+      confidence: 0.94,
+      address: "Izazaga 8, Centro Histórico, Ciudad de México",
+      reading_label: "Lectura visual reciente",
+      visual_signals: {
+        height: "42 cm",
+        growth: "alto",
+        hydration: "estable",
+        canopy: "inicial",
+        recommendation: "seguimiento mensual",
+      },
+    }),
+  },
+  "IMX-Beta-02": {
+    id: "tree-imx-beta-02",
+    public_code: "IMX-Beta-02",
+    species: "Jacaranda",
+    health_status: "mature",
+    growth_cm: 180,
+    latitude: 19.43213,
+    longitude: -99.13323,
+    zone: "Izazaga 8, Centro Histórico, Ciudad de México",
+    planted_at: "2025-08-18T10:00:00.000Z",
+    image_url: "/fotos/website/4.png",
+    notes: JSON.stringify({
+      scientific_name: "Jacaranda mimosifolia",
+      planted_by: "Brigada Inland Mex",
+      confidence: 0.91,
+      address: "Izazaga 8, Centro Histórico, Ciudad de México",
+      reading_label: "Lectura visual reciente",
+      visual_signals: {
+        height: "1.8 m",
+        growth: "consolidado",
+        hydration: "estable",
+        canopy: "alta",
+        recommendation: "monitoreo de copa",
+      },
+    }),
+  },
+  "IMX-Beta-03": {
+    id: "tree-imx-beta-03",
+    public_code: "IMX-Beta-03",
+    species: "Encino",
+    health_status: "dry",
+    growth_cm: 54,
+    latitude: 19.43213,
+    longitude: -99.13323,
+    zone: "Izazaga 8, Centro Histórico, Ciudad de México",
+    planted_at: "2025-05-04T10:00:00.000Z",
+    image_url: "/fotos/website/5.png",
+    notes: JSON.stringify({
+      scientific_name: "Quercus rugosa",
+      planted_by: "Comunidad Inland Mex",
+      confidence: 0.89,
+      address: "Izazaga 8, Centro Histórico, Ciudad de México",
+      reading_label: "Lectura visual reciente",
+      visual_signals: {
+        height: "54 cm",
+        growth: "detenido",
+        hydration: "crítica",
+        canopy: "ausente",
+        recommendation: "reemplazo recomendado",
+      },
+    }),
+  },
 };
+
+const healthLabels = {
+  young: "Joven",
+  mature: "Maduro",
+  maturing: "Maduro",
+  dry: "Seco",
+  deceased: "Seco",
+  healthy: "Saludable",
+  unknown: "Observación",
+};
+
+function proofHash(tree) {
+  return tree.onchain_tx_hash || `0x${createHash("sha256").update(`${tree.public_code}:${tree.species}`).digest("hex")}`;
+}
+
+function parseDetails(tree) {
+  try {
+    return JSON.parse(tree.notes || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function enrichTree(tree) {
+  const details = parseDetails(tree);
+  const plantedAt = tree.planted_at || tree.created_at || "2026-07-12T10:00:00.000Z";
+  const fallbackSignals = {
+    height: tree.growth_cm ? `${tree.growth_cm} cm` : "pendiente",
+    growth: tree.health_status === "unknown" ? "en observación" : "estable",
+    hydration: "estable",
+    canopy: "media",
+    recommendation: "seguimiento mensual",
+  };
+
+  return {
+    ...tree,
+    image_url: tree.image_url || "/fotos/website/3.png",
+    planted_at: plantedAt,
+    health_status: tree.health_status || "unknown",
+    details: {
+      scientific_name: details.scientific_name || tree.species,
+      planted_by: details.planted_by || "Inland Mex",
+      confidence: Number(details.confidence || 0.86),
+      address: details.address || tree.zone || "Sierra de Santa Catarina, Iztapalapa",
+      reading_label: details.reading_label || "Registro de inventario",
+      visual_signals: details.visual_signals || fallbackSignals,
+      last_reading_at: details.last_reading_at || tree.updated_at || plantedAt,
+      proof_network: details.proof_network || "Inland Proof Ledger · Beta",
+    },
+  };
+}
+
+async function loadTree(code) {
+  try {
+    const result = await getDb().execute({ sql: "SELECT * FROM trees WHERE public_code = ? LIMIT 1", args: [code] });
+    if (result.rows[0]) return enrichTree(result.rows[0]);
+  } catch (error) {
+    if (!String(error?.message || error).includes("Missing TURSO")) throw error;
+  }
+
+  if (betaProfiles[code]) return enrichTree(betaProfiles[code]);
+  return null;
+}
 
 export async function generateMetadata({ params }) {
   const { code } = await params;
@@ -16,36 +155,67 @@ export async function generateMetadata({ params }) {
 
 export default async function PlantProfile({ params }) {
   const { code } = await params;
-  const result = await getDb().execute({ sql: "SELECT * FROM trees WHERE public_code = ? LIMIT 1", args: [code] });
-  const tree = result.rows[0];
+  const tree = await loadTree(code);
   if (!tree) notFound();
-  let details = {};
-  try { details = JSON.parse(tree.notes || "{}"); } catch {}
+
+  const details = tree.details;
+  const signals = details.visual_signals;
+  const confidence = Math.round(details.confidence * 100);
+  const date = new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format(new Date(tree.planted_at));
+  const readingDate = new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format(new Date(details.last_reading_at));
+  const txHash = proofHash(tree);
+  const latitude = Number(tree.latitude);
+  const longitude = Number(tree.longitude);
 
   return (
     <main className="plant-profile">
-      <header className="profile-nav"><a href="/"><img src="/logo-circle.jpeg" alt="Inland Mex" /></a><span>IDENTIDAD VERIFICADA</span></header>
+      <header className="profile-nav">
+        <a href="/"><img src="/logo-circle.jpeg" alt="Inland Mex" /></a>
+        <span>{tree.public_code}</span>
+      </header>
+
       <section className="profile-photo">
         <img src={tree.image_url} alt={`${tree.species} registrada por Inland Mex`} />
-        <div className="profile-id">{tree.public_code}</div>
+        <div className="profile-id">{healthLabels[tree.health_status] || tree.health_status}</div>
       </section>
+
       <section className="profile-content">
-        <p className="admin-kicker">Árbol de Inland Mex</p>
+        <p className="admin-kicker">Identidad viva</p>
         <h1>{tree.species}</h1>
         <p className="scientific-name">{details.scientific_name}</p>
-        <div className={`health-badge health-${tree.health_status}`}>{healthLabels[tree.health_status] || tree.health_status}</div>
-        <div className="profile-grid">
-          <div><span>Plantada por</span><strong>{details.planted_by || "Inland Mex"}</strong></div>
-          <div><span>Fecha de registro</span><strong>{new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format(new Date(tree.planted_at))}</strong></div>
-          <div><span>Ubicación</span><strong>{Number(tree.latitude).toFixed(6)}, {Number(tree.longitude).toFixed(6)}</strong></div>
-          <div><span>Altura estimada</span><strong>{tree.growth_cm} cm</strong></div>
-        </div>
-        <section className="proof-card">
-          <div className="proof-heading"><span className="proof-icon">✓</span><div><strong>Registro blockchain verificado</strong><small>{details.proof_network}</small></div></div>
-          <code>{tree.onchain_tx_hash}</code>
-          <div className="proof-meta"><span>Bloque</span><strong>{Math.abs(tree.public_code.split("").reduce((a, c) => a + c.charCodeAt(0), 0) * 1847)}</strong><span>Estado</span><strong>Confirmado</strong></div>
+
+        <section className={`reading-card health-${tree.health_status}`}>
+          <span>{details.reading_label}</span>
+          <strong>{healthLabels[tree.health_status] || tree.health_status}</strong>
+          <small>{confidence}% confianza · {readingDate}</small>
         </section>
-        <p className="profile-footnote">La fotografía, ubicación y estado visual forman el primer registro de la historia viva de esta planta.</p>
+
+        <div className="profile-grid">
+          <div><span>Plantado por</span><strong>{details.planted_by}</strong></div>
+          <div><span>Fecha</span><strong>{date}</strong></div>
+          <div><span>Ubicación</span><strong>{details.address}</strong></div>
+          <div><span>Coordenadas</span><strong>{Number.isFinite(latitude) ? `${latitude.toFixed(6)}, ${longitude.toFixed(6)}` : "pendiente"}</strong></div>
+        </div>
+
+        <section className="signal-grid" aria-label="Señales visuales">
+          <div><span>Altura</span><strong>{signals.height}</strong></div>
+          <div><span>Crecimiento</span><strong>{signals.growth}</strong></div>
+          <div><span>Hidratación</span><strong>{signals.hydration}</strong></div>
+          <div><span>Cobertura</span><strong>{signals.canopy}</strong></div>
+        </section>
+
+        <section className="care-note">
+          <span>Acción sugerida</span>
+          <strong>{signals.recommendation}</strong>
+        </section>
+
+        <section className="proof-card">
+          <div className="proof-heading">
+            <span className="proof-icon">✓</span>
+            <div><strong>Prueba de registro</strong><small>{details.proof_network}</small></div>
+          </div>
+          <code>{txHash}</code>
+        </section>
       </section>
     </main>
   );
