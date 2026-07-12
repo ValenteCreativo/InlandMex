@@ -5,22 +5,49 @@ import { useEffect } from "react";
 export default function ClientEffects() {
   useEffect(() => {
     const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    const root = document.documentElement;
+    const hero = document.querySelector(".hero");
+    const mark = document.querySelector(".hero-mark");
+    const mobileQuery = window.matchMedia("(max-width: 620px)");
+    let targetProgress = 0;
+    let smoothProgress = 0;
+    let frameId;
+
+    const applyHeroProgress = (progress) => {
+      root.style.setProperty("--scroll-progress", progress.toFixed(3));
+
+      const maskProgress = clamp((progress - 0.12) / 0.5, 0, 1);
+      const maskShrink = mobileQuery.matches ? 14 : 72;
+      root.style.setProperty("--mask-width", `${(100 - maskProgress * maskShrink).toFixed(2)}vw`);
+
+      const videoOpacity = progress < 0.68 ? 1 : clamp(1 - (progress - 0.68) / 0.14, 0, 1);
+      root.style.setProperty("--video-opacity", videoOpacity.toFixed(3));
+    };
+
+    const renderHero = () => {
+      smoothProgress += (targetProgress - smoothProgress) * 0.18;
+      if (Math.abs(targetProgress - smoothProgress) < 0.001) smoothProgress = targetProgress;
+
+      applyHeroProgress(smoothProgress);
+      if (mark) mark.style.pointerEvents = targetProgress > 0.42 ? "none" : "auto";
+
+      if (smoothProgress !== targetProgress) {
+        frameId = window.requestAnimationFrame(renderHero);
+      } else {
+        frameId = undefined;
+      }
+    };
+
+    const scheduleHero = () => {
+      if (!frameId) frameId = window.requestAnimationFrame(renderHero);
+    };
 
     const updateHero = () => {
-      const hero = document.querySelector(".hero");
       if (!hero) return;
 
-      const progress = clamp(window.scrollY / (hero.offsetHeight - window.innerHeight), 0, 1);
-      document.documentElement.style.setProperty("--scroll-progress", progress.toFixed(3));
-      const isMobile = window.matchMedia("(max-width: 620px)").matches;
-      const maskProgress = clamp((progress - 0.12) / 0.5, 0, 1);
-      const maskShrink = isMobile ? 14 : 72;
-      document.documentElement.style.setProperty("--mask-width", `${(100 - maskProgress * maskShrink).toFixed(2)}vw`);
-      const videoOpacity = progress < 0.68 ? 1 : clamp(1 - (progress - 0.68) / 0.14, 0, 1);
-      document.documentElement.style.setProperty("--video-opacity", videoOpacity.toFixed(3));
-
-      const mark = document.querySelector(".hero-mark");
-      if (mark) mark.style.pointerEvents = progress > 0.42 ? "none" : "auto";
+      const range = Math.max(hero.offsetHeight - window.innerHeight, 1);
+      targetProgress = clamp(window.scrollY / range, 0, 1);
+      scheduleHero();
     };
 
     const playVideos = () => {
@@ -134,6 +161,7 @@ export default function ClientEffects() {
     return () => {
       window.removeEventListener("scroll", updateHero);
       window.removeEventListener("resize", updateHero);
+      if (frameId) window.cancelAnimationFrame(frameId);
     };
   }, []);
 
