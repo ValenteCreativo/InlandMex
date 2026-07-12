@@ -73,7 +73,7 @@ VALUES
     '/fotos/website/3.png',
     '0xbeta01',
     'IMX-Beta-01',
-    '{"schema":"beta-profile-v1","scientific_name":"Fraxinus uhdei","planted_by":"Valente / Inland Mex","confidence":0.94,"address":"Izazaga 8, Centro Histórico, Ciudad de México","reading_label":"Lectura visual reciente","visual_signals":{"height":"42 cm","growth":"alto","hydration":"estable","canopy":"inicial","recommendation":"seguimiento mensual"},"proof_network":"Inland Proof Ledger · Beta"}'
+    '{"schema":"beta-profile-v1","scientific_name":"Fraxinus uhdei","planted_by":"José Varela","confidence":0.94,"address":"Izazaga 8, Centro Histórico, Ciudad de México","reading_label":"Lectura visual reciente","visual_signals":{"height":"42 cm","growth":"alto","hydration":"estable","canopy":"inicial","recommendation":"seguimiento mensual"},"proof_network":"Inland Proof Ledger · Beta"}'
   ),
   (
     'tree-imx-beta-02',

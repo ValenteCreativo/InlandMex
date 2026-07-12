@@ -15,7 +15,7 @@ const demoProfiles = [
     label: "Joven · saludable",
     score: 0.94,
     growth: 42,
-    plantedBy: "Valente / Inland Mex",
+    plantedBy: "José Varela",
     plantedAt: "2026-07-12T10:00:00.000Z",
     signals: {
       height: "42 cm",

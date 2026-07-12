@@ -18,7 +18,7 @@ const betaProfiles = {
     image_url: "/fotos/website/3.png",
     notes: JSON.stringify({
       scientific_name: "Fraxinus uhdei",
-      planted_by: "Valente / Inland Mex",
+      planted_by: "José Varela",
       confidence: 0.94,
       address: "Izazaga 8, Centro Histórico, Ciudad de México",
       reading_label: "Lectura visual reciente",
@@ -125,7 +125,7 @@ function enrichTree(tree) {
     health_status: tree.health_status || "unknown",
     details: {
       scientific_name: details.scientific_name || tree.species,
-      planted_by: details.planted_by || "Inland Mex",
+      planted_by: tree.public_code === "IMX-Beta-01" ? "José Varela" : details.planted_by || "Inland Mex",
       confidence: Number(details.confidence || 0.86),
       address: details.address || tree.zone || "Sierra de Santa Catarina, Iztapalapa",
       reading_label: details.reading_label || "Registro de inventario",

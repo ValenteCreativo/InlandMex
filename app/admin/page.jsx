@@ -38,7 +38,7 @@ async function getAdminData() {
       db.execute({
         sql: `SELECT public_code, species, zone, latitude, longitude, health_status, growth_cm, updated_at
               FROM trees
-              ORDER BY public_code
+              ORDER BY CASE WHEN public_code LIKE 'IMX-Beta-%' THEN 0 ELSE 1 END, public_code
               LIMIT 80`,
       }),
     ]);
