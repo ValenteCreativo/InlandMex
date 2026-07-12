@@ -225,7 +225,7 @@ textarea {
 
 .photo-five {
   --photo: url("/fotos/website/5.png");
-  background-position: 36% 38%;
+  background-position: 36% 82%;
   border-radius: 6px;
   height: 162px;
   left: 5vw;
@@ -874,50 +874,84 @@ p {
     font-size: 16px;
   }
 
+  .hero {
+    min-height: 188vh;
+  }
+
+  .hero-video-shell {
+    border-radius: clamp(0px, calc(var(--scroll-progress, 0) * 18px), 18px);
+    height: calc(100svh - (var(--scroll-progress, 0) * 10svh));
+    margin-top: calc(var(--scroll-progress, 0) * 4vh);
+    top: calc(var(--scroll-progress, 0) * 4vh);
+  }
+
   .hero-mark img {
     height: clamp(172px, 52vw, 236px);
     width: clamp(172px, 52vw, 236px);
   }
 
   .kudanil-story {
-    min-height: 200vh;
+    margin-top: -92vh;
+    min-height: 218vh;
+    padding-top: 24vh;
     padding-left: 18px;
     padding-right: 18px;
   }
 
   .float-photo {
-    opacity: 0.75;
+    box-shadow: 0 16px 42px rgba(18, 20, 14, 0.2);
+    opacity: 0.62;
   }
 
   .photo-one {
     height: 190px;
-    left: 5vw;
+    left: -10px;
+    top: 16vh;
     width: 120px;
   }
 
   .photo-two {
     height: 178px;
-    right: 5vw;
+    right: -6px;
+    top: 42vh;
     width: 112px;
   }
 
   .photo-three {
     height: 166px;
-    left: 4vw;
+    left: -8px;
+    top: 92vh;
     width: 108px;
   }
 
-  .photo-four,
-  .photo-five,
-  .photo-seven,
-  .photo-eight {
+  .photo-four {
     height: 96px;
+    right: -14px;
+    top: 122vh;
     width: 148px;
   }
 
-  .photo-six {
-    height: 152px;
-    width: 98px;
+  .photo-five {
+    background-position: 36% 82%;
+    height: 112px;
+    left: -12px;
+    top: 162vh;
+    width: 170px;
+  }
+
+  .photo-six,
+  .photo-seven,
+  .photo-eight {
+    display: none;
+  }
+
+  .story-copy {
+    max-width: min(88vw, 420px);
+    min-height: 64vh;
+  }
+
+  .copy-two {
+    margin-top: 44vh;
   }
 
   .story-copy h1,

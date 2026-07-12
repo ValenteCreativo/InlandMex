@@ -12,8 +12,10 @@ export default function ClientEffects() {
 
       const progress = clamp(window.scrollY / (hero.offsetHeight - window.innerHeight), 0, 1);
       document.documentElement.style.setProperty("--scroll-progress", progress.toFixed(3));
+      const isMobile = window.matchMedia("(max-width: 620px)").matches;
       const maskProgress = clamp((progress - 0.12) / 0.5, 0, 1);
-      document.documentElement.style.setProperty("--mask-width", `${(100 - maskProgress * 72).toFixed(2)}vw`);
+      const maskShrink = isMobile ? 14 : 72;
+      document.documentElement.style.setProperty("--mask-width", `${(100 - maskProgress * maskShrink).toFixed(2)}vw`);
       const videoOpacity = progress < 0.68 ? 1 : clamp(1 - (progress - 0.68) / 0.14, 0, 1);
       document.documentElement.style.setProperty("--video-opacity", videoOpacity.toFixed(3));
 
