@@ -172,6 +172,7 @@ export default function Home() {
           <div className="tech-grid">
             <div className="vision-card">
               <div className="scan-scene">
+                <video className="tech-video" src="/fotos/website/video-final.m4v" autoPlay muted loop playsInline preload="metadata" />
                 <div className="scan-box box-one"><span>salud estimada</span></div>
                 <div className="scan-box box-two"><span>crecimiento</span></div>
                 <div className="scan-box box-three"><span>georreferencia</span></div>

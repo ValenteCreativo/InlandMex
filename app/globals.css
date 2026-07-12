@@ -185,7 +185,7 @@ textarea {
 }
 
 .photo-one {
-  --photo: url("/fotos/website/IMG_7523.jpg");
+  --photo: url("/fotos/website/1.png");
   border-radius: 6px;
   height: 210px;
   left: 5vw;
@@ -194,7 +194,7 @@ textarea {
 }
 
 .photo-two {
-  --photo: url("/fotos/website/Untitled design (1).png");
+  --photo: url("/fotos/website/2.png");
   background-position: 60% 46%;
   border-radius: 6px;
   height: 198px;
@@ -204,7 +204,7 @@ textarea {
 }
 
 .photo-three {
-  --photo: url("/fotos/website/Untitled design (2).png");
+  --photo: url("/fotos/website/3.png");
   background-position: 44% 65%;
   border-radius: 6px;
   height: 188px;
@@ -214,7 +214,7 @@ textarea {
 }
 
 .photo-four {
-  --photo: url("/fotos/website/Untitled design (3).png");
+  --photo: url("/fotos/website/4.png");
   border-radius: 6px;
   height: 96px;
   right: 9vw;
@@ -223,7 +223,7 @@ textarea {
 }
 
 .photo-five {
-  --photo: url("/fotos/website/Untitled design (4).png");
+  --photo: url("/fotos/website/5.png");
   background-position: 36% 38%;
   border-radius: 6px;
   height: 112px;
@@ -233,7 +233,7 @@ textarea {
 }
 
 .photo-six {
-  --photo: url("/fotos/website/Untitled design (5).png");
+  --photo: url("/fotos/website/6.png");
   background-position: 70% 60%;
   border-radius: 6px;
   height: 172px;
@@ -243,7 +243,7 @@ textarea {
 }
 
 .photo-seven {
-  --photo: url("/fotos/website/Untitled design (6).png");
+  --photo: url("/fotos/website/7..png");
   border-radius: 6px;
   height: 78px;
   left: 25vw;
@@ -252,7 +252,7 @@ textarea {
 }
 
 .photo-eight {
-  --photo: url("/fotos/website/Grafity tour_.png");
+  --photo: url("/fotos/website/8.png");
   border-radius: 6px;
   height: 86px;
   right: 24vw;
@@ -299,7 +299,7 @@ textarea {
 }
 
 .kicker {
-  color: var(--fern);
+  color: rgba(247, 242, 232, 0.84);
   font-size: 0.5rem;
   font-weight: 900;
   letter-spacing: 0.04em;
@@ -319,6 +319,7 @@ p {
 .section-title h2,
 .mission-banner h2,
 .reserve-copy h2 {
+  color: var(--paper);
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(1.18rem, 2.1vw, 2rem);
   font-weight: 400;
@@ -331,7 +332,7 @@ p {
 .tour-orb p,
 .mini-stack span,
 .detail-box span {
-  color: rgba(22, 25, 20, 0.68);
+  color: rgba(247, 242, 232, 0.78);
   font-size: 0.66rem;
   line-height: 1.48;
 }
@@ -348,11 +349,11 @@ p {
 
 .compact-section {
   background:
-    linear-gradient(rgba(238, 231, 217, 0.08), rgba(238, 231, 217, 0.15)),
-    var(--glass);
-  border: 1px solid rgba(247, 242, 232, 0.18);
+    linear-gradient(rgba(11, 13, 10, 0.18), rgba(11, 13, 10, 0.28)),
+    rgba(18, 20, 14, 0.18);
+  border: 1px solid rgba(247, 242, 232, 0.22);
   box-shadow: 0 26px 90px rgba(15, 18, 12, 0.13);
-  color: var(--ink);
+  color: var(--paper);
   margin: 12px auto;
   min-height: 0;
   overflow: hidden;
@@ -430,8 +431,8 @@ p {
 }
 
 .detail-box {
-  background: rgba(238, 231, 217, 0.22);
-  border: 1px solid var(--line);
+  background: rgba(12, 14, 10, 0.22);
+  border: 1px solid rgba(247, 242, 232, 0.18);
   display: grid;
   gap: 18px;
   grid-template-columns: 1fr;
@@ -450,6 +451,7 @@ p {
 
 .detail-box strong,
 .mini-stack strong {
+  color: var(--paper);
   font-size: 0.66rem;
   font-weight: 900;
   text-transform: uppercase;
@@ -459,7 +461,7 @@ p {
   align-items: center;
   background:
     linear-gradient(rgba(18, 20, 14, 0.46), rgba(18, 20, 14, 0.46)),
-    url("/fotos/website/Untitled design (2).png");
+    url("/fotos/website/3.png");
   background-position: center 48%;
   background-size: cover;
   border: 1px solid rgba(247, 242, 232, 0.3);
@@ -548,8 +550,8 @@ p {
 }
 
 .label {
-  background: rgba(247, 242, 232, 0.7);
-  color: var(--ink);
+  background: rgba(14, 17, 12, 0.7);
+  color: var(--paper);
   font-size: 0.5rem;
   font-weight: 900;
   padding: 6px 8px;
@@ -572,8 +574,9 @@ p {
 .mini-stack article,
 .payment-card,
 .contact-icons a {
-  background: rgba(238, 231, 217, 0.2);
-  border: 1px solid var(--line);
+  background: rgba(12, 14, 10, 0.24);
+  border: 1px solid rgba(247, 242, 232, 0.16);
+  color: var(--paper);
 }
 
 .tree-feed {
@@ -588,6 +591,7 @@ p {
   font-weight: 900;
   gap: 8px;
   text-transform: uppercase;
+  color: var(--paper);
 }
 
 .feed-title span {
@@ -622,7 +626,7 @@ p {
 }
 
 .feed-window span {
-  color: rgba(22, 25, 20, 0.62);
+  color: rgba(247, 242, 232, 0.7);
   font-size: 0.56rem;
 }
 
@@ -657,7 +661,7 @@ p {
 }
 
 .metrics span {
-  color: rgba(22, 25, 20, 0.62);
+  color: rgba(247, 242, 232, 0.7);
   font-size: 0.55rem;
   font-weight: 900;
   text-transform: uppercase;
@@ -678,14 +682,28 @@ p {
 }
 
 .scan-scene {
-  background:
-    linear-gradient(rgba(18, 20, 14, 0.04), rgba(18, 20, 14, 0.24)),
-    url("/fotos/website/Untitled design (4).png");
-  background-position: center;
-  background-size: cover;
+  background: #11140f;
   height: 100%;
   min-height: 180px;
   position: relative;
+  overflow: hidden;
+}
+
+.tech-video {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+.scan-scene::after {
+  background: linear-gradient(rgba(18, 20, 14, 0.08), rgba(18, 20, 14, 0.34));
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: 1;
 }
 
 .scan-box {
@@ -694,12 +712,13 @@ p {
   min-height: 40px;
   min-width: 78px;
   position: absolute;
+  z-index: 2;
 }
 
 .scan-box span {
-  background: rgba(247, 242, 232, 0.82);
+  background: rgba(14, 17, 12, 0.78);
   bottom: -1px;
-  color: var(--ink);
+  color: var(--paper);
   font-size: 0.49rem;
   font-weight: 900;
   left: -1px;
@@ -730,8 +749,8 @@ p {
 
 .mini-stack article {
   background:
-    linear-gradient(120deg, rgba(238, 231, 217, 0.26), rgba(238, 231, 217, 0.12)),
-    rgba(238, 231, 217, 0.2);
+    linear-gradient(120deg, rgba(12, 14, 10, 0.36), rgba(12, 14, 10, 0.18)),
+    rgba(12, 14, 10, 0.2);
   display: grid;
   gap: 7px;
   min-height: 62px;
@@ -798,7 +817,7 @@ p {
 }
 
 .payment-card div {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(247, 242, 232, 0.16);
   display: grid;
   gap: 4px;
   padding-bottom: 8px;
@@ -810,14 +829,14 @@ p {
 }
 
 .payment-card strong {
-  color: rgba(22, 25, 20, 0.7);
+  color: rgba(247, 242, 232, 0.7);
   font-size: 0.5rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .payment-card span {
-  color: rgba(22, 25, 20, 0.75);
+  color: rgba(247, 242, 232, 0.82);
   font-size: 0.72rem;
 }
 
@@ -843,7 +862,7 @@ p {
 
 .footer a,
 .footer small {
-  color: rgba(247, 242, 232, 0.68);
+  color: rgba(247, 242, 232, 0.78);
   font-size: 0.48rem;
   font-weight: 900;
   text-transform: uppercase;
