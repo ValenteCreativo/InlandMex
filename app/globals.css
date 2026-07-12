@@ -378,6 +378,14 @@ p {
   font-size: clamp(1.32rem, 1.95vw, 2rem);
 }
 
+.section-title > p:not(.kicker) {
+  color: rgba(247, 242, 232, 0.78);
+  font-size: 0.82rem;
+  line-height: 1.42;
+  margin: -4px auto 0;
+  max-width: 560px;
+}
+
 .orb-row {
   align-items: start;
   display: grid;
@@ -674,7 +682,7 @@ p {
 .tech-grid {
   display: grid;
   gap: 20px;
-  grid-template-columns: minmax(0, 0.82fr) minmax(250px, 0.66fr);
+  grid-template-columns: minmax(0, 0.86fr) minmax(310px, 0.74fr);
   position: relative;
   z-index: 1;
 }
@@ -710,9 +718,48 @@ p {
   z-index: 1;
 }
 
+.tech-story {
+  align-content: center;
+  display: grid;
+  gap: 14px;
+}
+
+.tech-flow {
+  align-items: center;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.tech-flow span {
+  align-items: center;
+  background: rgba(247, 242, 232, 0.1);
+  border: 1px solid rgba(247, 242, 232, 0.18);
+  color: rgba(247, 242, 232, 0.84);
+  display: flex;
+  font-size: 0.58rem;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 30px;
+  padding: 5px 6px;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.tech-flow span:not(:last-child)::after {
+  background: rgba(247, 242, 232, 0.38);
+  content: "";
+  height: 1px;
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  width: 8px;
+}
+
 .mini-stack {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .mini-stack article {
@@ -720,9 +767,9 @@ p {
     linear-gradient(120deg, rgba(12, 14, 10, 0.36), rgba(12, 14, 10, 0.18)),
     rgba(12, 14, 10, 0.2);
   display: grid;
-  gap: 7px;
-  min-height: 82px;
-  padding: 14px 16px;
+  gap: 6px;
+  min-height: 0;
+  padding: 13px 15px 13px 17px;
   position: relative;
 }
 
@@ -994,6 +1041,18 @@ p {
   .reserve,
   .detail-box {
     grid-template-columns: 1fr;
+  }
+
+  .tech-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tech-flow span:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .tech-flow span::after {
+    display: none;
   }
 
   .before-after {

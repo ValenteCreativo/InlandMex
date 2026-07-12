@@ -165,7 +165,11 @@ export default function Home() {
         <section className="compact-section tech" id="technology">
           <div className="section-title">
             <p className="kicker">Tecnología</p>
-            <h2>Del árbol observado al impacto verificable.</h2>
+            <h2>Cada árbol merece una historia verificable.</h2>
+            <p>
+              Estamos desarrollando un sistema de inventario visual para recorrer zonas reforestadas,
+              detectar árboles automáticamente y registrar su evolución en blockchain.
+            </p>
           </div>
           <div className="tech-grid">
             <div className="vision-card">
@@ -173,10 +177,44 @@ export default function Home() {
                 <video className="tech-video" src="/fotos/website/video-final.m4v" autoPlay muted loop playsInline preload="metadata" />
               </div>
             </div>
-            <div className="mini-stack">
-              <article><strong>1 · Captura inteligente</strong><span>El celular registra cada árbol con foto, especie, ubicación y señales visibles de salud.</span></article>
-              <article><strong>2 · Inventario con Machine Learning</strong><span>El modelo ayuda a identificar patrones, crecimiento, duplicados y cambios entre visitas.</span></article>
-              <article><strong>3 · Evidencia para carbono</strong><span>Los registros pueden tokenizarse para crear trazabilidad ambiental y preparar futuros mercados de bonos de carbono.</span></article>
+            <div className="tech-story">
+              <div className="tech-flow" aria-label="Flujo tecnológico">
+                <span>Recorrido</span>
+                <span>Visión ML</span>
+                <span>Inventario</span>
+                <span>Blockchain</span>
+                <span>Carbono</span>
+              </div>
+              <div className="mini-stack">
+                <article>
+                  <strong>Detectar</strong>
+                  <span>
+                    Video en campo procesado con visión computacional, usando herramientas como
+                    Roboflow Supervision, para identificar árboles durante el recorrido.
+                  </span>
+                </article>
+                <article>
+                  <strong>Monitorear</strong>
+                  <span>
+                    Cada árbol puede asociarse a ubicación, especie, crecimiento, estado de salud
+                    y evidencia visual para seguir su evolución en el tiempo.
+                  </span>
+                </article>
+                <article>
+                  <strong>Verificar</strong>
+                  <span>
+                    La data validada se registra en blockchain como historial inmutable del esfuerzo:
+                    qué se plantó, dónde está y cómo ha cambiado.
+                  </span>
+                </article>
+                <article>
+                  <strong>Tokenizar</strong>
+                  <span>
+                    Ese registro vivo abre la puerta a adopciones, patrocinios y futuros modelos de
+                    bonos de carbono.
+                  </span>
+                </article>
+              </div>
             </div>
           </div>
         </section>
