@@ -82,16 +82,21 @@ textarea {
     linear-gradient(145deg, #6f654f, #27331f 54%, #15140f);
   border-radius: clamp(0px, calc(var(--scroll-progress, 0) * 24px), 24px);
   box-shadow: 0 34px 90px rgba(18, 20, 14, 0.2);
+  clip-path: inset(
+    var(--mask-inset-top, 0vh)
+    var(--mask-inset-x, 0vw)
+    var(--mask-inset-bottom, 0vh)
+    var(--mask-inset-x, 0vw)
+    round clamp(0px, calc(var(--scroll-progress, 0) * 24px), 24px)
+  );
   contain: layout paint;
-  height: calc(100vh - (var(--scroll-progress, 0) * 22vh));
-  max-width: var(--mask-width, 100vw);
+  height: 100vh;
   opacity: var(--video-opacity, 1);
   overflow: hidden;
   position: sticky;
   top: 0;
-  transform: translate3d(0, calc(var(--scroll-progress, 0) * 9vh), 0);
   transform-origin: top center;
-  will-change: max-width, height, transform, opacity, border-radius;
+  will-change: clip-path, opacity, border-radius;
   width: 100vw;
   z-index: 4;
 }
@@ -930,8 +935,14 @@ p {
 
   .hero-video-shell {
     border-radius: clamp(0px, calc(var(--scroll-progress, 0) * 18px), 18px);
-    height: calc(100svh - (var(--scroll-progress, 0) * 10svh));
-    transform: translate3d(0, calc(var(--scroll-progress, 0) * 4vh), 0);
+    clip-path: inset(
+      var(--mask-inset-top, 0vh)
+      var(--mask-inset-x, 0vw)
+      var(--mask-inset-bottom, 0vh)
+      var(--mask-inset-x, 0vw)
+      round clamp(0px, calc(var(--scroll-progress, 0) * 18px), 18px)
+    );
+    height: 100svh;
   }
 
   .hero-mark img {

@@ -9,45 +9,34 @@ export default function ClientEffects() {
     const hero = document.querySelector(".hero");
     const mark = document.querySelector(".hero-mark");
     const mobileQuery = window.matchMedia("(max-width: 620px)");
-    let targetProgress = 0;
-    let smoothProgress = 0;
     let frameId;
 
     const applyHeroProgress = (progress) => {
       root.style.setProperty("--scroll-progress", progress.toFixed(3));
 
       const maskProgress = clamp((progress - 0.12) / 0.5, 0, 1);
-      const maskShrink = mobileQuery.matches ? 14 : 72;
-      root.style.setProperty("--mask-width", `${(100 - maskProgress * maskShrink).toFixed(2)}vw`);
+      const sideInset = maskProgress * (mobileQuery.matches ? 7 : 36);
+      const topInset = maskProgress * (mobileQuery.matches ? 4 : 9);
+      const bottomInset = maskProgress * (mobileQuery.matches ? 6 : 13);
+      root.style.setProperty("--mask-inset-x", `${sideInset.toFixed(2)}vw`);
+      root.style.setProperty("--mask-inset-top", `${topInset.toFixed(2)}vh`);
+      root.style.setProperty("--mask-inset-bottom", `${bottomInset.toFixed(2)}vh`);
 
       const videoOpacity = progress < 0.68 ? 1 : clamp(1 - (progress - 0.68) / 0.14, 0, 1);
       root.style.setProperty("--video-opacity", videoOpacity.toFixed(3));
-    };
-
-    const renderHero = () => {
-      smoothProgress += (targetProgress - smoothProgress) * 0.18;
-      if (Math.abs(targetProgress - smoothProgress) < 0.001) smoothProgress = targetProgress;
-
-      applyHeroProgress(smoothProgress);
-      if (mark) mark.style.pointerEvents = targetProgress > 0.42 ? "none" : "auto";
-
-      if (smoothProgress !== targetProgress) {
-        frameId = window.requestAnimationFrame(renderHero);
-      } else {
-        frameId = undefined;
-      }
-    };
-
-    const scheduleHero = () => {
-      if (!frameId) frameId = window.requestAnimationFrame(renderHero);
+      if (mark) mark.style.pointerEvents = progress > 0.42 ? "none" : "auto";
     };
 
     const updateHero = () => {
       if (!hero) return;
 
-      const range = Math.max(hero.offsetHeight - window.innerHeight, 1);
-      targetProgress = clamp(window.scrollY / range, 0, 1);
-      scheduleHero();
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(() => {
+        const range = Math.max(hero.offsetHeight - window.innerHeight, 1);
+        const progress = clamp(window.scrollY / range, 0, 1);
+        applyHeroProgress(progress);
+        frameId = undefined;
+      });
     };
 
     const playVideos = () => {
