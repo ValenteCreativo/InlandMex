@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "db:schema": "node scripts/turso-exec.mjs db/schema.sql",
+    "db:phase2": "node scripts/turso-exec.mjs db/phase2-schema.sql",
     "db:seed": "node scripts/turso-exec.mjs db/seed.sql",
     "build": "next build",
     "start": "next start"
