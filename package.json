@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "db:schema": "node scripts/turso-exec.mjs db/schema.sql",
+    "db:seed": "node scripts/turso-exec.mjs db/seed.sql",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.4",
     "next": "15.5.20",
     "react": "19.2.7",
     "react-dom": "19.2.7"
