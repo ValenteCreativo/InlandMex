@@ -83,12 +83,10 @@ export default function Home() {
 
           <article className="story-copy copy-two">
             <p className="kicker">Qué vivirás</p>
-            <h2>Una mañana que cambiará la forma en la que ves Iztapalapa, la naturaleza, la ciudad y tu propio estilo de vida.</h2>
+            <h2>Una mañana que transformará tu forma de ver Iztapalapa, la naturaleza y la ciudad.</h2>
             <p>
-              Caminarás antes del amanecer por un antiguo volcán, contemplarás desde las alturas la
-              Ciudad de México, la quinta ciudad más grande del mundo, compartirás un desayuno sobre
-              las nubes, plantarás un árbol que durará por décadas y descubrirás nuestra historia de
-              regeneración del territorio.
+              Camina un antiguo volcán al amanecer, contempla la Ciudad de México desde las alturas,
+              planta un árbol y descubre cómo una comunidad está regenerando su territorio.
             </p>
           </article>
         </section>
