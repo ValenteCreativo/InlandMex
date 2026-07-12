@@ -189,6 +189,26 @@ export default async function AdminPage() {
       </section>
 
       <section className="ops-grid">
+        <article className="admin-panel inventory-panel">
+          <div className="panel-title">
+            <div>
+              <h2>Inventario</h2>
+              <span>{inventoryTrees.length} perfiles</span>
+            </div>
+          </div>
+          <div className="inventory-list">
+            {inventoryTrees.map((tree, index) => (
+              <a href={`/plantas/${tree.public_code}`} key={tree.public_code}>
+                <span>{tree.public_code}</span>
+                <strong>{tree.species}</strong>
+                <em>{displayState(tree, index)}</em>
+                <small>{tree.latitude ? `${Number(tree.latitude).toFixed(5)}, ${Number(tree.longitude).toFixed(5)}` : "ubicación pendiente"}</small>
+              </a>
+            ))}
+            {!inventoryTrees.length && <p className="quiet-empty">Sin registros.</p>}
+          </div>
+        </article>
+
         <article className="admin-panel map-panel" id="inventory-map">
           <div className="panel-title">
             <div>
@@ -226,26 +246,6 @@ export default async function AdminPage() {
                 <span>esperando lectura</span>
               </div>
             )}
-          </div>
-        </article>
-
-        <article className="admin-panel inventory-panel">
-          <div className="panel-title">
-            <div>
-              <h2>Inventario</h2>
-              <span>{inventoryTrees.length} perfiles</span>
-            </div>
-          </div>
-          <div className="inventory-list">
-            {inventoryTrees.map((tree, index) => (
-              <a href={`/plantas/${tree.public_code}`} key={tree.public_code}>
-                <span>{tree.public_code}</span>
-                <strong>{tree.species}</strong>
-                <em>{displayState(tree, index)}</em>
-                <small>{tree.latitude ? `${Number(tree.latitude).toFixed(5)}, ${Number(tree.longitude).toFixed(5)}` : "ubicación pendiente"}</small>
-              </a>
-            ))}
-            {!inventoryTrees.length && <p className="quiet-empty">Sin registros.</p>}
           </div>
         </article>
 

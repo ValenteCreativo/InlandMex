@@ -1646,6 +1646,158 @@ textarea {
   }
 }
 
+.admin-quiet {
+  font-size: 14px;
+  padding: 14px clamp(12px, 2.4vw, 30px) 34px;
+}
+
+.admin-quiet .admin-header {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.admin-quiet .admin-kicker {
+  font-size: 0.58rem;
+  margin-bottom: 4px;
+}
+
+.admin-quiet .admin-subtitle {
+  font-size: 0.68rem;
+}
+
+.admin-quiet .admin-link {
+  font-size: 0.68rem;
+  min-height: 32px;
+  padding: 7px 10px;
+}
+
+.admin-quiet .admin-stats {
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.admin-quiet .admin-stats article {
+  min-height: 64px;
+  padding: 10px;
+}
+
+.admin-quiet .admin-stats article span {
+  font-size: 0.58rem;
+}
+
+.admin-quiet .admin-stats article strong {
+  font-size: 1.24rem;
+}
+
+.admin-quiet .admin-stats article small {
+  font-size: 0.62rem;
+}
+
+.admin-quiet .ops-grid {
+  align-items: start;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.78fr);
+  max-width: 1240px;
+  width: 100%;
+}
+
+.admin-quiet .inventory-panel {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  max-height: none;
+}
+
+.admin-quiet .map-panel {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.admin-quiet .activity-panel {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.admin-quiet .admin-panel {
+  margin-bottom: 0;
+  max-width: none;
+  padding: 12px;
+  width: 100%;
+}
+
+.admin-quiet .panel-title {
+  margin-bottom: 9px;
+}
+
+.admin-quiet .panel-title h2 {
+  font-size: 0.82rem;
+}
+
+.admin-quiet .panel-title span,
+.admin-quiet .panel-title strong {
+  font-size: 0.62rem;
+}
+
+.admin-quiet .inventory-list {
+  max-height: min(62vh, 620px);
+  min-height: 420px;
+}
+
+.admin-quiet .inventory-list a {
+  grid-template-columns: 70px minmax(0, 1fr) 90px;
+  padding: 7px 8px;
+}
+
+.admin-quiet .inventory-list span,
+.admin-quiet .inventory-list small,
+.admin-quiet .inventory-list em {
+  font-size: 0.58rem;
+}
+
+.admin-quiet .inventory-list strong {
+  font-size: 0.74rem;
+}
+
+.admin-quiet .field-map {
+  height: min(34vh, 340px);
+}
+
+.admin-quiet .batch-list div,
+.admin-quiet .batch-list a {
+  padding: 8px;
+}
+
+.admin-quiet .batch-list strong {
+  font-size: 0.7rem;
+}
+
+.admin-quiet .batch-list span,
+.admin-quiet .quiet-empty {
+  font-size: 0.62rem;
+}
+
+@media (max-width: 920px) {
+  .admin-quiet .ops-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-quiet .inventory-panel,
+  .admin-quiet .map-panel,
+  .admin-quiet .activity-panel {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .admin-quiet .inventory-list {
+    max-height: 420px;
+    min-height: 240px;
+  }
+
+  .admin-quiet .field-map {
+    height: 260px;
+  }
+}
+
 .hero {
   display: grid;
   min-height: 220vh;
