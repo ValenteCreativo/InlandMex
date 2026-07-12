@@ -1798,6 +1798,154 @@ textarea {
   }
 }
 
+.scanner-shell .camera-view {
+  height: min(70svh, 760px);
+}
+
+.scanner-shell .camera-view::after {
+  background:
+    linear-gradient(rgba(0, 174, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 174, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(transparent 76%, rgba(5, 8, 7, 0.76));
+  background-size: 44px 44px, 44px 44px, auto;
+}
+
+.scanner-shell .scan-reticle {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+
+.scanner-shell .scan-reticle i,
+.scanner-shell .scan-reticle b,
+.scanner-shell .detection-box {
+  display: none;
+}
+
+.tracking-box {
+  border: 2px solid #0aa7df;
+  box-shadow: none;
+  position: absolute;
+}
+
+.tracking-box span {
+  background: #0aa7df;
+  color: #041115;
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 900;
+  left: -2px;
+  line-height: 1;
+  min-width: 34px;
+  padding: 5px 7px;
+  position: absolute;
+  text-align: center;
+  top: -25px;
+}
+
+.tracking-main {
+  height: 34%;
+  left: 18%;
+  top: 21%;
+  width: 48%;
+}
+
+.tracking-leaf {
+  border-color: #ffd928;
+  height: 18%;
+  left: 13%;
+  top: 14%;
+  width: 30%;
+}
+
+.tracking-leaf span {
+  background: #ffd928;
+}
+
+.tracking-stem {
+  border-color: #ff385f;
+  height: 16%;
+  left: 54%;
+  top: 11%;
+  width: 30%;
+}
+
+.tracking-stem span {
+  background: #ff385f;
+  color: #120205;
+}
+
+.tracking-ghost {
+  border-color: rgba(40, 195, 111, 0.62);
+  bottom: 10%;
+  height: 20%;
+  left: 26%;
+  width: 42%;
+}
+
+.scanner-shell .vision-label {
+  background: rgba(5, 8, 7, 0.68);
+  border: 1px solid rgba(10, 167, 223, 0.45);
+  bottom: 14px;
+  color: #8fe2ff;
+  font-size: 0.58rem;
+  padding: 6px 8px;
+}
+
+.scanner-shell .vision-label span {
+  background: #0aa7df;
+  height: 5px;
+  width: 5px;
+}
+
+.scanner-shell .scanner-controls {
+  padding: 14px 18px 18px;
+}
+
+.scanner-shell .scanner-controls > p {
+  font-size: 0.68rem;
+}
+
+.scanner-shell .shutter {
+  height: 64px;
+  width: 64px;
+}
+
+@media (max-width: 560px) {
+  .tracking-box {
+    border-width: 1.5px;
+  }
+
+  .tracking-box span {
+    font-size: 0.58rem;
+    min-width: 28px;
+    padding: 4px 6px;
+    top: -21px;
+  }
+
+  .tracking-main {
+    height: 30%;
+    left: 21%;
+    top: 24%;
+    width: 52%;
+  }
+
+  .tracking-leaf {
+    height: 16%;
+    left: 12%;
+    top: 17%;
+    width: 35%;
+  }
+
+  .tracking-stem {
+    height: 15%;
+    left: 57%;
+    top: 13%;
+    width: 31%;
+  }
+}
+
 .hero {
   display: grid;
   min-height: 220vh;

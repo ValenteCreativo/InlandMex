@@ -10,10 +10,10 @@ const stages = {
 };
 
 const signalFrames = [
-  ["tracking", "leaf density", "gps lock"],
-  ["species vector", "stem ratio", "hydration"],
-  ["canopy signal", "growth model", "confidence"],
-  ["visual match", "profile sync", "evidence"],
+  ["#17", "#42", "#08"],
+  ["#18", "#43", "#09"],
+  ["#17", "#45", "#11"],
+  ["#19", "#42", "#10"],
 ];
 
 export default function PlantScanner() {
@@ -23,7 +23,7 @@ export default function PlantScanner() {
   const [stage, setStage] = useState("ready");
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
-  const [scanReady, setScanReady] = useState(false);
+  const [scanReady, setScanReady] = useState(true);
   const [signalIndex, setSignalIndex] = useState(0);
   const [demoIndex, setDemoIndex] = useState(0);
 
@@ -33,12 +33,8 @@ export default function PlantScanner() {
   }, []);
 
   useEffect(() => {
-    const readyTimer = window.setTimeout(() => setScanReady(true), 5000);
     const signalTimer = window.setInterval(() => setSignalIndex((value) => (value + 1) % signalFrames.length), 900);
-    return () => {
-      window.clearTimeout(readyTimer);
-      window.clearInterval(signalTimer);
-    };
+    return () => window.clearInterval(signalTimer);
   }, []);
 
   useEffect(() => {
@@ -110,8 +106,7 @@ export default function PlantScanner() {
     setPhoto("");
     setResult(null);
     setStage("ready");
-    setScanReady(false);
-    window.setTimeout(() => setScanReady(true), 5000);
+    setScanReady(true);
   }
 
   if (result) {
@@ -151,14 +146,13 @@ export default function PlantScanner() {
         {photo ? <img src={photo} alt="Captura de la planta" /> : <video ref={videoRef} autoPlay muted playsInline />}
         {scanReady && (
           <div className="scan-reticle">
-            <i /><i /><i /><i />
-            <div className="detection-box">
-              {signalFrames[signalIndex].map((signal) => <span key={signal}>{signal}</span>)}
-            </div>
-            <b />
+            <div className="tracking-box tracking-main"><span>{signalFrames[signalIndex][0]}</span></div>
+            <div className="tracking-box tracking-leaf"><span>{signalFrames[signalIndex][1]}</span></div>
+            <div className="tracking-box tracking-stem"><span>{signalFrames[signalIndex][2]}</span></div>
+            <div className="tracking-box tracking-ghost" />
           </div>
         )}
-        <div className="vision-label"><span /> {photo ? "FRAME CAPTURADO" : scanReady ? "ANALIZANDO" : "CALIBRANDO"}</div>
+        <div className="vision-label"><span /> {photo ? "FRAME" : "TRACKING"}</div>
       </section>
       <section className="scanner-controls">
         <p>{stages[stage]}</p>
@@ -171,7 +165,7 @@ export default function PlantScanner() {
             <button className="scan-secondary" onClick={() => setPhoto("")} disabled={stage !== "ready"}>Repetir foto</button>
           </>
         ) : (
-          <button className="shutter" onClick={capture} disabled={!scanReady} aria-label="Tomar foto"><span /></button>
+          <button className="shutter" onClick={capture} aria-label="Tomar foto"><span /></button>
         )}
       </section>
     </main>
