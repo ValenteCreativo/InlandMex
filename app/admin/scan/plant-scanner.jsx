@@ -10,10 +10,10 @@ const stages = {
 };
 
 const signalFrames = [
-  ["#17", "#42", "#08"],
-  ["#18", "#43", "#09"],
-  ["#17", "#45", "#11"],
-  ["#19", "#42", "#10"],
+  ["COPA", "FOLLAJE", "TALLO"],
+  ["ESPECIE", "DENSIDAD", "RIEGO"],
+  ["SALUD", "ALTURA", "GPS"],
+  ["LECTURA", "HIDRATACIÓN", "PERFIL"],
 ];
 
 export default function PlantScanner() {
@@ -56,12 +56,12 @@ export default function PlantScanner() {
     const video = videoRef.current;
     if (!video?.videoWidth) return setError("La cámara todavía está iniciando.");
     const canvas = document.createElement("canvas");
-    const maxWidth = 900;
+    const maxWidth = 720;
     const scale = Math.min(1, maxWidth / video.videoWidth);
     canvas.width = Math.round(video.videoWidth * scale);
     canvas.height = Math.round(video.videoHeight * scale);
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
-    setPhoto(canvas.toDataURL("image/jpeg", 0.72));
+    setPhoto(canvas.toDataURL("image/jpeg", 0.68));
     setError("");
   }
 

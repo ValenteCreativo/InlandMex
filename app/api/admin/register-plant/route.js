@@ -85,6 +85,8 @@ export async function POST(request) {
   if (body.image.length > 1_500_000) return NextResponse.json({ error: "La foto es demasiado grande." }, { status: 413 });
 
   const db = getDb();
+  const latitude = Number.isFinite(Number(body.latitude)) ? Number(body.latitude) : 19.43213;
+  const longitude = Number.isFinite(Number(body.longitude)) ? Number(body.longitude) : -99.13323;
   const requestedIndex = Number(body.demoIndex);
   let profileIndex = Number.isFinite(requestedIndex) ? requestedIndex : 0;
   if (!Number.isFinite(requestedIndex)) {
@@ -100,8 +102,8 @@ export async function POST(request) {
     public_code: publicCode,
     species: profile.species,
     health_status: profile.health,
-    latitude: Number(body.latitude),
-    longitude: Number(body.longitude),
+    latitude,
+    longitude,
     planted_by: profile.plantedBy,
     captured_at: createdAt,
   };
@@ -123,22 +125,29 @@ export async function POST(request) {
 
   await db.execute({
     sql: `INSERT INTO trees (id, public_code, species, latitude, longitude, zone, planted_at, health_status, growth_cm, image_url, onchain_tx_hash, token_id, notes)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    args: [treeId, publicCode, profile.species, Number(body.latitude), Number(body.longitude), demoAddress, profile.plantedAt, profile.health, profile.growth, body.image, txHash, publicCode, notes],
-  }).catch(async (error) => {
-    if (!String(error?.message || error).includes("UNIQUE")) throw error;
-    await db.execute({
-      sql: `UPDATE trees
-            SET species = ?, latitude = ?, longitude = ?, zone = ?, planted_at = ?, health_status = ?,
-                growth_cm = ?, image_url = ?, onchain_tx_hash = ?, token_id = ?, notes = ?
-            WHERE public_code = ?`,
-      args: [profile.species, Number(body.latitude), Number(body.longitude), demoAddress, profile.plantedAt, profile.health, profile.growth, body.image, txHash, publicCode, notes, publicCode],
-    });
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ON CONFLICT(public_code) DO UPDATE SET
+            species = excluded.species,
+            latitude = excluded.latitude,
+            longitude = excluded.longitude,
+            zone = excluded.zone,
+            planted_at = excluded.planted_at,
+            health_status = excluded.health_status,
+            growth_cm = excluded.growth_cm,
+            image_url = excluded.image_url,
+            onchain_tx_hash = excluded.onchain_tx_hash,
+            token_id = excluded.token_id,
+            notes = excluded.notes`,
+    args: [
+      treeId, publicCode, profile.species, latitude, longitude, demoAddress, profile.plantedAt, profile.health, profile.growth, body.image, txHash, publicCode, notes,
+    ],
   });
+  const treeRow = await db.execute({ sql: "SELECT id FROM trees WHERE public_code = ? LIMIT 1", args: [publicCode] });
+  const observationTreeId = treeRow.rows[0]?.id || treeId;
   await db.execute({
     sql: `INSERT INTO tree_observations (id, tree_id, observed_at, health_score, growth_cm, image_url, ml_payload_json, notes)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    args: [`obs-${randomUUID()}`, treeId, createdAt, profile.score, profile.growth, body.image, JSON.stringify({ model: "inland-vision-beta", species_confidence: profile.score, health_label: profile.label, signals: profile.signals }), "Lectura visual actualizada desde cámara móvil."],
+    args: [`obs-${randomUUID()}`, observationTreeId, createdAt, profile.score, profile.growth, body.image, JSON.stringify({ model: "inland-vision-beta", species_confidence: profile.score, health_label: profile.label, signals: profile.signals }), "Lectura visual actualizada desde cámara móvil."],
   });
 
   return NextResponse.json({
