@@ -29,8 +29,13 @@ export async function POST(request) {
   if (body.image.length > 1_500_000) return NextResponse.json({ error: "La foto es demasiado grande." }, { status: 413 });
 
   const db = getDb();
-  const countResult = await db.execute("SELECT COUNT(*) AS count FROM trees WHERE notes LIKE '%hackathon-demo-v1%'");
-  const profile = demoProfiles[Number(countResult.rows[0]?.count || 0) % demoProfiles.length];
+  const requestedIndex = Number(body.demoIndex);
+  let profileIndex = Number.isFinite(requestedIndex) ? requestedIndex : 0;
+  if (!Number.isFinite(requestedIndex)) {
+    const countResult = await db.execute("SELECT COUNT(*) AS count FROM trees WHERE notes LIKE '%hackathon-demo-v1%'");
+    profileIndex = Number(countResult.rows[0]?.count || 0);
+  }
+  const profile = demoProfiles[Math.abs(profileIndex) % demoProfiles.length];
   const treeId = `tree-${randomUUID()}`;
   const publicCode = `IMX-${Date.now().toString(36).toUpperCase()}`;
   const createdAt = new Date().toISOString();

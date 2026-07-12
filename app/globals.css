@@ -912,6 +912,402 @@ textarea {
   }
 }
 
+.admin-shell {
+  background:
+    linear-gradient(rgba(8, 12, 10, 0.82), rgba(8, 12, 10, 0.9)),
+    url("/volcan-iztapalapa-6-bg.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  color: #f6efe2;
+}
+
+.admin-shell::before {
+  background:
+    linear-gradient(90deg, rgba(127, 208, 194, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(184, 224, 121, 0.055) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.55), transparent);
+}
+
+.admin-header h1 {
+  color: #f6efe2;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.admin-subtitle,
+.panel-title span,
+.panel-title strong,
+.admin-stats article small,
+.health-list span,
+.batch-list span,
+.quiet-empty {
+  color: rgba(246, 239, 226, 0.58);
+}
+
+.admin-kicker {
+  color: #7fd0c2;
+}
+
+.admin-link,
+.admin-form button,
+.carbon-card button {
+  background: rgba(7, 11, 10, 0.72);
+  border-color: rgba(127, 208, 194, 0.28);
+  color: #f6efe2;
+}
+
+.admin-link-primary,
+.carbon-card button {
+  background: #b8e079;
+  border-color: rgba(184, 224, 121, 0.56);
+  color: #07100e;
+}
+
+.command-hero,
+.admin-stats article,
+.admin-panel,
+.login-panel {
+  background: rgba(8, 14, 12, 0.58);
+  border: 1px solid rgba(246, 239, 226, 0.14);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.22);
+}
+
+.command-hero,
+.admin-panel,
+.login-panel {
+  backdrop-filter: blur(18px) saturate(1.12);
+}
+
+.command-hero {
+  background:
+    linear-gradient(135deg, rgba(8, 14, 12, 0.64), rgba(16, 40, 35, 0.52)),
+    url("/fotos/website/video-final.m4v");
+  grid-template-columns: minmax(0, 1fr) 260px;
+  min-height: 260px;
+  padding: clamp(20px, 3vw, 34px);
+}
+
+.command-copy h2 {
+  color: #f6efe2;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(2.5rem, 7vw, 5.8rem);
+  font-weight: 400;
+}
+
+.sequence-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 120px));
+  margin: 2px 0 6px;
+}
+
+.command-copy > .admin-link {
+  width: fit-content;
+}
+
+.sequence-grid div {
+  background: rgba(246, 239, 226, 0.07);
+  border: 1px solid rgba(127, 208, 194, 0.22);
+  border-radius: 6px;
+  display: grid;
+  gap: 3px;
+  padding: 10px;
+}
+
+.sequence-grid span {
+  color: #7fd0c2;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.sequence-grid strong {
+  color: #f6efe2;
+  font-size: 0.86rem;
+}
+
+.carbon-card {
+  background: rgba(7, 11, 10, 0.52);
+  border-color: rgba(184, 224, 121, 0.2);
+}
+
+.carbon-card strong {
+  color: #b8e079;
+  font-size: clamp(1.9rem, 3.3vw, 2.8rem);
+}
+
+.admin-stats article span {
+  color: #7fd0c2;
+}
+
+.admin-stats article strong,
+.panel-title h2,
+.health-list strong,
+.batch-list strong {
+  color: #f6efe2;
+}
+
+.field-map {
+  background:
+    linear-gradient(150deg, rgba(8, 14, 12, 0.28), rgba(7, 11, 10, 0.76)),
+    url("/fotos/website/3.png");
+  border: 1px solid rgba(127, 208, 194, 0.22);
+  box-shadow: inset 0 0 60px rgba(127, 208, 194, 0.08);
+}
+
+.field-map::before {
+  background:
+    linear-gradient(110deg, transparent 0 28%, rgba(127, 208, 194, 0.28) 28.2%, transparent 28.5%),
+    linear-gradient(36deg, transparent 0 58%, rgba(184, 224, 121, 0.18) 58.2%, transparent 58.5%),
+    radial-gradient(ellipse at 42% 54%, rgba(184, 224, 121, 0.16), transparent 42%);
+  opacity: 1;
+}
+
+.map-grid {
+  background:
+    linear-gradient(rgba(127, 208, 194, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 208, 194, 0.1) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.map-pin {
+  background: #7fd0c2;
+  border-color: #eaf7dd;
+  border-radius: 2px;
+  box-shadow: 0 0 0 6px rgba(127, 208, 194, 0.12), 0 0 28px rgba(127, 208, 194, 0.55);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.pin-deceased {
+  background: #6f8a78;
+  box-shadow: 0 0 0 6px rgba(185, 205, 185, 0.08), 0 0 24px rgba(185, 205, 185, 0.36);
+}
+
+.pin-maturing {
+  background: #b8e079;
+  box-shadow: 0 0 0 6px rgba(184, 224, 121, 0.14), 0 0 28px rgba(184, 224, 121, 0.5);
+}
+
+.map-empty {
+  background: rgba(7, 11, 10, 0.62);
+  border-color: rgba(127, 208, 194, 0.24);
+}
+
+.health-list div,
+.batch-list div,
+.batch-list a {
+  background: rgba(246, 239, 226, 0.05);
+  border-color: rgba(246, 239, 226, 0.08);
+}
+
+.admin-table th,
+.admin-table td {
+  border-top-color: rgba(246, 239, 226, 0.09);
+  color: rgba(246, 239, 226, 0.84);
+}
+
+.admin-table th {
+  color: rgba(127, 208, 194, 0.7);
+}
+
+.admin-login {
+  background:
+    linear-gradient(rgba(8, 12, 10, 0.68), rgba(8, 12, 10, 0.86)),
+    url("/volcan-iztapalapa-6-bg.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.login-mark {
+  background: rgba(184, 224, 121, 0.12);
+  border: 1px solid rgba(184, 224, 121, 0.28);
+  color: #b8e079;
+}
+
+.login-panel h1 {
+  color: #f6efe2;
+}
+
+.login-copy,
+.admin-form label {
+  color: rgba(246, 239, 226, 0.62);
+}
+
+.admin-form input {
+  background: rgba(7, 11, 10, 0.48);
+  border-color: rgba(246, 239, 226, 0.16);
+  color: #f6efe2;
+}
+
+.scanner-shell {
+  background: #050807;
+  color: #f6efe2;
+}
+
+.scanner-top {
+  background: rgba(5, 8, 7, 0.82);
+  border-bottom: 1px solid rgba(127, 208, 194, 0.16);
+  color: #f6efe2;
+}
+
+.scan-sequence {
+  background: rgba(5, 8, 7, 0.86);
+  border-bottom: 1px solid rgba(127, 208, 194, 0.14);
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 8px;
+}
+
+.scan-sequence span {
+  border: 1px solid rgba(246, 239, 226, 0.1);
+  color: rgba(246, 239, 226, 0.48);
+  font-size: 0.66rem;
+  font-weight: 900;
+  padding: 8px 6px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.scan-sequence .active {
+  border-color: rgba(0, 174, 255, 0.72);
+  color: #8fe2ff;
+  box-shadow: inset 0 0 18px rgba(0, 174, 255, 0.13);
+}
+
+.camera-view {
+  background: #050807;
+  height: min(68svh, 760px);
+}
+
+.camera-view video,
+.camera-view > img {
+  filter: saturate(0.95) contrast(1.08);
+}
+
+.camera-view::after {
+  background:
+    linear-gradient(rgba(0, 174, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 174, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(transparent 72%, rgba(5, 8, 7, 0.82));
+  background-size: 34px 34px, 34px 34px, auto;
+}
+
+.scan-reticle {
+  inset: 14% 10%;
+  z-index: 2;
+}
+
+.scan-reticle i {
+  border-color: #00aeff;
+  filter: drop-shadow(0 0 10px rgba(0, 174, 255, 0.65));
+  height: 42px;
+  width: 42px;
+}
+
+.scan-reticle b {
+  animation: scanLine 1.7s linear infinite;
+  background: linear-gradient(90deg, transparent, rgba(0, 174, 255, 0.75), transparent);
+  height: 2px;
+  left: 4%;
+  position: absolute;
+  right: 4%;
+  top: 12%;
+}
+
+@keyframes scanLine {
+  from { transform: translateY(0); }
+  to { transform: translateY(38svh); }
+}
+
+.detection-box {
+  border: 2px solid #00aeff;
+  box-shadow: 0 0 24px rgba(0, 174, 255, 0.24), inset 0 0 26px rgba(0, 174, 255, 0.08);
+  height: 38%;
+  left: 21%;
+  position: absolute;
+  top: 20%;
+  width: 44%;
+}
+
+.detection-box span,
+.detection-box small {
+  background: #00aeff;
+  color: #031016;
+  font-size: 0.62rem;
+  font-weight: 950;
+  left: -2px;
+  letter-spacing: 0.06em;
+  padding: 5px 7px;
+  position: absolute;
+  text-transform: uppercase;
+  top: -28px;
+}
+
+.detection-box small {
+  left: auto;
+  right: -2px;
+}
+
+.vision-label {
+  background: rgba(5, 8, 7, 0.74);
+  border-color: rgba(0, 174, 255, 0.5);
+  color: #8fe2ff;
+}
+
+.vision-label span {
+  background: #00aeff;
+}
+
+.scanner-controls {
+  background: #050807;
+}
+
+.scanner-controls > p {
+  color: rgba(143, 226, 255, 0.78);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.shutter {
+  border-color: #00aeff;
+  box-shadow: 0 0 34px rgba(0, 174, 255, 0.22);
+}
+
+.shutter span {
+  background: #8fe2ff;
+}
+
+.scan-primary {
+  background: #8fe2ff;
+  color: #031016;
+}
+
+.planter-field input {
+  background: rgba(246, 239, 226, 0.06);
+  border-color: rgba(0, 174, 255, 0.24);
+}
+
+@media (max-width: 920px) {
+  .command-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .command-copy h2 {
+    font-size: 3rem;
+  }
+
+  .sequence-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .hero {
   display: grid;
   min-height: 220vh;

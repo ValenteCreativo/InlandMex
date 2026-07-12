@@ -3,11 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 
 const stages = {
-  ready: "Apunta la cámara hacia la planta",
-  locating: "Obteniendo ubicación...",
-  analyzing: "Analizando especie y salud...",
-  registering: "Creando identidad y comprobante...",
+  ready: "Listo",
+  locating: "GPS",
+  analyzing: "Vision",
+  registering: "Registro",
 };
+
+const demoSequence = [
+  { label: "01", state: "Joven", code: "young" },
+  { label: "02", state: "Maduro", code: "maturing" },
+  { label: "03", state: "Viejo", code: "deceased" },
+];
 
 export default function PlantScanner() {
   const videoRef = useRef(null);
@@ -17,6 +23,14 @@ export default function PlantScanner() {
   const [planter, setPlanter] = useState("Valente / Inland Mex");
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
+  const [demoIndex, setDemoIndex] = useState(0);
+
+  const currentDemo = demoSequence[demoIndex % demoSequence.length];
+
+  useEffect(() => {
+    const saved = Number(window.localStorage.getItem("imx-demo-sequence") || 0);
+    if (Number.isFinite(saved)) setDemoIndex(saved % demoSequence.length);
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -69,10 +83,13 @@ export default function PlantScanner() {
       const response = await fetch("/api/admin/register-plant", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ image: photo, planter: planter.trim(), ...location }),
+        body: JSON.stringify({ image: photo, planter: planter.trim(), demoIndex, ...location }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "No se pudo registrar la planta.");
+      const nextIndex = (demoIndex + 1) % demoSequence.length;
+      window.localStorage.setItem("imx-demo-sequence", String(nextIndex));
+      setDemoIndex(nextIndex);
       setResult(data);
     } catch (err) {
       setError(err.message);
@@ -113,10 +130,22 @@ export default function PlantScanner() {
   return (
     <main className="scanner-shell">
       <div className="scanner-top"><a href="/admin" aria-label="Volver">←</a><span>INLAND VISION</span><span>LIVE</span></div>
+      <div className="scan-sequence">
+        {demoSequence.map((item, index) => (
+          <span className={index === demoIndex ? "active" : ""} key={item.code}>{item.label} {item.state}</span>
+        ))}
+      </div>
       <section className="camera-view">
         {photo ? <img src={photo} alt="Captura de la planta" /> : <video ref={videoRef} autoPlay muted playsInline />}
-        {!photo && <div className="scan-reticle"><i /><i /><i /><i /></div>}
-        <div className="vision-label"><span /> {photo ? "PLANTA DETECTADA" : "BUSCANDO PLANTA"}</div>
+        <div className="scan-reticle">
+          <i /><i /><i /><i />
+          <div className="detection-box">
+            <span>{currentDemo.state}</span>
+            <small>0.{demoIndex === 0 ? "94" : demoIndex === 1 ? "88" : "12"}</small>
+          </div>
+          <b />
+        </div>
+        <div className="vision-label"><span /> {photo ? "FRAME CAPTURADO" : "DETECTANDO"}</div>
       </section>
       <section className="scanner-controls">
         <p>{stages[stage]}</p>
@@ -125,7 +154,7 @@ export default function PlantScanner() {
           <>
             <label className="planter-field">Plantada por<input value={planter} onChange={(event) => setPlanter(event.target.value)} /></label>
             <button className="scan-primary" onClick={registerPlant} disabled={stage !== "ready"}>
-              {stage === "ready" ? "Identificar y registrar" : stages[stage]}
+              {stage === "ready" ? "Crear perfil" : stages[stage]}
             </button>
             <button className="scan-secondary" onClick={() => setPhoto("")} disabled={stage !== "ready"}>Repetir foto</button>
           </>

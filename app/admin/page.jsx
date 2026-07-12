@@ -110,9 +110,9 @@ async function AdminLogin() {
     <main className="admin-shell admin-login">
       <section className="login-panel">
         <div className="login-mark">IMX</div>
-        <p className="admin-kicker">Inland Mex Command</p>
-        <h1>Centro de operaciones ambientales</h1>
-        <p className="login-copy">Inventario vivo, evidencia de campo y trazabilidad para restauración urbana.</p>
+        <p className="admin-kicker">Inland Mex</p>
+        <h1>Acceso admin</h1>
+        <p className="login-copy">Inventario · campo · evidencia</p>
         <form action={login} className="admin-form">
           <label>
             Email
@@ -162,53 +162,59 @@ export default async function AdminPage() {
     { x: 58, y: 52, status: "maturing" },
     { x: 74, y: 31, status: "deceased" },
   ];
+  const sequence = [
+    ["01", "Joven"],
+    ["02", "Maduro"],
+    ["03", "Viejo"],
+  ];
 
   return (
     <main className="admin-shell">
       <header className="admin-header">
         <div>
-          <p className="admin-kicker">Fase 2 · Live Ops</p>
-          <h1>Dashboard de restauración Inland Mex</h1>
-          <p className="admin-subtitle">Monitoreo visual, inventario georreferenciado y prueba de impacto para el demo.</p>
+          <p className="admin-kicker">IMX OS · Fase 2</p>
+          <h1>Inventario vivo</h1>
+          <p className="admin-subtitle">Campo · visión · trazabilidad</p>
         </div>
         <div className="admin-actions">
-          <a className="admin-link admin-link-primary" href="/admin/scan">Escanear planta</a>
-          <a className="admin-link" href="#carbon-report">Reporte carbono</a>
+          <a className="admin-link admin-link-primary" href="/admin/scan">Cámara</a>
+          <a className="admin-link" href="#carbon-report">MRV</a>
           <a className="admin-link" href="/">Sitio publico</a>
         </div>
       </header>
 
       <section className="command-hero">
         <div className="command-copy">
-          <span className="status-pill"><i /> Sistema listo para captura móvil</span>
-          <h2>Del celular al perfil NFC en menos de un minuto.</h2>
-          <p>Captura evidencia, toma GPS, simula visión computacional y crea un perfil público con prueba criptográfica para presentar trazabilidad punta a punta.</p>
-          <div className="command-actions">
-            <a className="admin-link admin-link-primary" href="/admin/scan">Abrir escáner</a>
-            <a className="admin-link admin-link-ghost" href="#inventory-map">Ver mapa</a>
+          <span className="status-pill"><i /> Campo activo</span>
+          <h2>Visión</h2>
+          <div className="sequence-grid" aria-label="Secuencia demo">
+            {sequence.map(([id, label]) => (
+              <div key={id}><span>{id}</span><strong>{label}</strong></div>
+            ))}
           </div>
+          <a className="admin-link admin-link-primary" href="/admin/scan">Abrir cámara</a>
         </div>
         <div className="carbon-card" id="carbon-report">
-          <span>Potencial de bonos</span>
+          <span>MRV</span>
           <strong>{carbonEstimate} tCO2e</strong>
-          <p>Estimación anual demo con inventario activo. Listo para convertir evidencias en reporte verificable.</p>
-          <button type="button">Generar reporte MRV</button>
+          <p>Estimación anual</p>
+          <button type="button">Generar reporte</button>
         </div>
       </section>
 
       <section className="admin-stats" aria-label="Resumen">
-        <article><span>Inventario vivo</span><strong>{data.stats.trees}</strong><small>plantas registradas</small></article>
-        <article><span>Salud visual</span><strong>{healthRate}%</strong><small>estimado saludable</small></article>
-        <article><span>Evidencias</span><strong>{data.stats.observations}</strong><small>observaciones guardadas</small></article>
-        <article><span>Revisión ML</span><strong>{data.stats.pendingDetections}</strong><small>detecciones pendientes</small></article>
+        <article><span>Árboles</span><strong>{data.stats.trees}</strong><small>registrados</small></article>
+        <article><span>Salud</span><strong>{healthRate}%</strong><small>visual</small></article>
+        <article><span>Evidencia</span><strong>{data.stats.observations}</strong><small>capturas</small></article>
+        <article><span>Cola ML</span><strong>{data.stats.pendingDetections}</strong><small>pendientes</small></article>
       </section>
 
       <section className="ops-grid">
         <article className="admin-panel map-panel" id="inventory-map">
           <div className="panel-title">
             <div>
-              <h2>Mapa operativo</h2>
-              <span>Sierra de Santa Catarina · inventario georreferenciado</span>
+              <h2>Terreno</h2>
+              <span>Sierra de Santa Catarina</span>
             </div>
             <strong>{mappedTrees.length ? `${mappedTrees.length} pines` : "demo"}</strong>
           </div>
@@ -237,8 +243,8 @@ export default async function AdminPage() {
             ))}
             {!mappedTrees.length && (
               <div className="map-empty">
-                <strong>Listo para captura</strong>
-                <span>Registra tres plantas desde el escáner y este mapa cobra vida.</span>
+                <strong>Sin capturas</strong>
+                <span>01 · 02 · 03</span>
               </div>
             )}
           </div>
@@ -247,8 +253,8 @@ export default async function AdminPage() {
         <article className="admin-panel health-panel">
           <div className="panel-title">
             <div>
-              <h2>Salud del inventario</h2>
-              <span>lectura visual por estado</span>
+              <h2>Estados</h2>
+              <span>lectura visual</span>
             </div>
           </div>
           <div className="health-list">
@@ -265,8 +271,8 @@ export default async function AdminPage() {
         <article className="admin-panel activity-panel">
           <div className="panel-title">
             <div>
-              <h2>Actividad reciente</h2>
-              <span>capturas y lotes de campo</span>
+              <h2>Actividad</h2>
+              <span>reciente</span>
             </div>
           </div>
           <div className="batch-list">
@@ -282,7 +288,7 @@ export default async function AdminPage() {
                 <span>{tree.species} · {tree.health_status} · {tree.zone || "campo"}</span>
               </a>
             ))}
-            {!data.latestBatches.length && !latestTrees.length && <p className="quiet-empty">Las capturas aparecerán aquí después del primer escaneo.</p>}
+            {!data.latestBatches.length && !latestTrees.length && <p className="quiet-empty">Sin actividad.</p>}
           </div>
         </article>
       </section>
@@ -291,7 +297,7 @@ export default async function AdminPage() {
         <div className="panel-title">
           <div>
             <h2>Detecciones recientes</h2>
-            <span>cola de revisión visual</span>
+            <span>visión computacional</span>
           </div>
         </div>
         <div className="admin-table-wrap">
@@ -318,7 +324,7 @@ export default async function AdminPage() {
                 </tr>
               ))}
               {!data.detections.length && (
-                <tr><td colSpan="6">Sin detecciones pendientes. Las capturas del demo se registran como perfiles verificados en el inventario.</td></tr>
+                <tr><td colSpan="6">Sin detecciones pendientes.</td></tr>
               )}
             </tbody>
           </table>
@@ -329,7 +335,7 @@ export default async function AdminPage() {
         <div className="panel-title">
           <div>
             <h2>Inventario base</h2>
-            <span>{data.trees.length} perfiles visibles</span>
+            <span>{data.trees.length} perfiles</span>
           </div>
         </div>
         <div className="admin-table-wrap">
