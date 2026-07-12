@@ -18,57 +18,73 @@ function adminSessionHash() {
 }
 
 async function getAdminData() {
-  const db = getDb();
-  const [treeCount, observationCount, latestBatches, healthRows, trees] = await Promise.all([
-    db.execute("SELECT COUNT(*) AS count FROM trees"),
-    db.execute("SELECT COUNT(*) AS count FROM tree_observations"),
-    db.execute({
-      sql: `SELECT id, source, model_version, status, created_at, notes
-            FROM inventory_batches
-            ORDER BY created_at DESC
-            LIMIT 8`,
-    }),
-    db.execute({
-      sql: `SELECT health_status, COUNT(*) AS count
-            FROM trees
-            GROUP BY health_status
-            ORDER BY count DESC`,
-    }),
-    db.execute({
-      sql: `SELECT public_code, species, zone, latitude, longitude, health_status, growth_cm, updated_at
-            FROM trees
-            ORDER BY public_code
-            LIMIT 80`,
-    }),
-  ]);
-
-  let pendingDetections = { rows: [{ count: 0 }] };
-  let detections = { rows: [] };
   try {
-    pendingDetections = await db.execute("SELECT COUNT(*) AS count FROM visual_tree_detections WHERE review_status = 'pending'");
-    detections = await db.execute({
-      sql: `SELECT d.id, d.tracker_id, d.frame_index, d.confidence, d.health_score,
-                   d.health_status, d.review_status, d.latitude, d.longitude,
-                   d.evidence_url, d.created_at, b.source AS batch_source
-            FROM visual_tree_detections d
-            LEFT JOIN inventory_batches b ON b.id = d.batch_id
-            ORDER BY d.created_at DESC
-            LIMIT 24`,
-    });
+    const db = getDb();
+    const [treeCount, observationCount, latestBatches, healthRows, trees] = await Promise.all([
+      db.execute("SELECT COUNT(*) AS count FROM trees"),
+      db.execute("SELECT COUNT(*) AS count FROM tree_observations"),
+      db.execute({
+        sql: `SELECT id, source, model_version, status, created_at, notes
+              FROM inventory_batches
+              ORDER BY created_at DESC
+              LIMIT 8`,
+      }),
+      db.execute({
+        sql: `SELECT health_status, COUNT(*) AS count
+              FROM trees
+              GROUP BY health_status
+              ORDER BY count DESC`,
+      }),
+      db.execute({
+        sql: `SELECT public_code, species, zone, latitude, longitude, health_status, growth_cm, updated_at
+              FROM trees
+              ORDER BY public_code
+              LIMIT 80`,
+      }),
+    ]);
+
+    let pendingDetections = { rows: [{ count: 0 }] };
+    let detections = { rows: [] };
+    try {
+      pendingDetections = await db.execute("SELECT COUNT(*) AS count FROM visual_tree_detections WHERE review_status = 'pending'");
+      detections = await db.execute({
+        sql: `SELECT d.id, d.tracker_id, d.frame_index, d.confidence, d.health_score,
+                     d.health_status, d.review_status, d.latitude, d.longitude,
+                     d.evidence_url, d.created_at, b.source AS batch_source
+              FROM visual_tree_detections d
+              LEFT JOIN inventory_batches b ON b.id = d.batch_id
+              ORDER BY d.created_at DESC
+              LIMIT 24`,
+      });
+    } catch (error) {
+      if (!String(error?.message || error).includes("no such table")) throw error;
+    }
+
+    return {
+      stats: {
+        trees: treeCount.rows[0]?.count || 0,
+        observations: observationCount.rows[0]?.count || 0,
+        pendingDetections: pendingDetections.rows[0]?.count || 0,
+      },
+      latestBatches: latestBatches.rows,
+      healthRows: healthRows.rows,
+      trees: trees.rows,
+      detections: detections.rows,
+    };
   } catch (error) {
-    if (!String(error?.message || error).includes("no such table")) throw error;
+    if (!String(error?.message || error).includes("Missing TURSO")) throw error;
   }
 
   return {
     stats: {
-      trees: treeCount.rows[0]?.count || 0,
-      observations: observationCount.rows[0]?.count || 0,
-      pendingDetections: pendingDetections.rows[0]?.count || 0,
+      trees: 0,
+      observations: 0,
+      pendingDetections: 0,
     },
-    latestBatches: latestBatches.rows,
-    healthRows: healthRows.rows,
-    trees: trees.rows,
-    detections: detections.rows,
+    latestBatches: [],
+    healthRows: [],
+    trees: [],
+    detections: [],
   };
 }
 
@@ -92,9 +108,11 @@ async function AdminLogin() {
 
   return (
     <main className="admin-shell admin-login">
-      <section className="admin-panel login-panel">
-        <p className="admin-kicker">Inland Mex Admin</p>
-        <h1>Acceso operativo</h1>
+      <section className="login-panel">
+        <div className="login-mark">IMX</div>
+        <p className="admin-kicker">Inland Mex Command</p>
+        <h1>Centro de operaciones ambientales</h1>
+        <p className="login-copy">Inventario vivo, evidencia de campo y trazabilidad para restauración urbana.</p>
         <form action={login} className="admin-form">
           <label>
             Email
@@ -128,37 +146,110 @@ export default async function AdminPage() {
   if (!isAuthed) return <AdminLogin />;
 
   const data = await getAdminData();
+  const healthyCount = data.healthRows.reduce((sum, row) => {
+    const status = String(row.health_status || "").toLowerCase();
+    return status.includes("healthy") || status.includes("young") || status.includes("maturing")
+      ? sum + Number(row.count || 0)
+      : sum;
+  }, 0);
+  const treeTotal = Number(data.stats.trees || 0);
+  const healthRate = treeTotal ? Math.round((healthyCount / treeTotal) * 100) : 0;
+  const carbonEstimate = Math.max(0.1, treeTotal * 0.021).toFixed(2);
+  const mappedTrees = data.trees.filter((tree) => tree.latitude && tree.longitude).slice(0, 18);
+  const latestTrees = data.trees.slice(0, 8);
+  const demoPins = [
+    { x: 26, y: 36, status: "young" },
+    { x: 58, y: 52, status: "maturing" },
+    { x: 74, y: 31, status: "deceased" },
+  ];
 
   return (
     <main className="admin-shell">
       <header className="admin-header">
         <div>
-          <p className="admin-kicker">Fase 2</p>
-          <h1>Inventario visual y operaciones</h1>
+          <p className="admin-kicker">Fase 2 · Live Ops</p>
+          <h1>Dashboard de restauración Inland Mex</h1>
+          <p className="admin-subtitle">Monitoreo visual, inventario georreferenciado y prueba de impacto para el demo.</p>
         </div>
         <div className="admin-actions">
-          <a className="admin-link admin-link-primary" href="/admin/scan">Abrir escáner</a>
+          <a className="admin-link admin-link-primary" href="/admin/scan">Escanear planta</a>
+          <a className="admin-link" href="#carbon-report">Reporte carbono</a>
           <a className="admin-link" href="/">Sitio publico</a>
         </div>
       </header>
 
-      <a className="scan-launch" href="/admin/scan">
-        <span className="scan-launch-icon" aria-hidden="true">⌾</span>
-        <span><strong>Registrar una planta</strong><small>Cámara, ubicación, análisis visual y perfil NFC</small></span>
-        <span aria-hidden="true">→</span>
-      </a>
-
-      <section className="admin-stats" aria-label="Resumen">
-        <article><strong>{data.stats.trees}</strong><span>Arboles registrados</span></article>
-        <article><strong>{data.stats.observations}</strong><span>Observaciones historicas</span></article>
-        <article><strong>{data.stats.pendingDetections}</strong><span>Detecciones por revisar</span></article>
+      <section className="command-hero">
+        <div className="command-copy">
+          <span className="status-pill"><i /> Sistema listo para captura móvil</span>
+          <h2>Del celular al perfil NFC en menos de un minuto.</h2>
+          <p>Captura evidencia, toma GPS, simula visión computacional y crea un perfil público con prueba criptográfica para presentar trazabilidad punta a punta.</p>
+          <div className="command-actions">
+            <a className="admin-link admin-link-primary" href="/admin/scan">Abrir escáner</a>
+            <a className="admin-link admin-link-ghost" href="#inventory-map">Ver mapa</a>
+          </div>
+        </div>
+        <div className="carbon-card" id="carbon-report">
+          <span>Potencial de bonos</span>
+          <strong>{carbonEstimate} tCO2e</strong>
+          <p>Estimación anual demo con inventario activo. Listo para convertir evidencias en reporte verificable.</p>
+          <button type="button">Generar reporte MRV</button>
+        </div>
       </section>
 
-      <section className="admin-grid">
-        <article className="admin-panel">
+      <section className="admin-stats" aria-label="Resumen">
+        <article><span>Inventario vivo</span><strong>{data.stats.trees}</strong><small>plantas registradas</small></article>
+        <article><span>Salud visual</span><strong>{healthRate}%</strong><small>estimado saludable</small></article>
+        <article><span>Evidencias</span><strong>{data.stats.observations}</strong><small>observaciones guardadas</small></article>
+        <article><span>Revisión ML</span><strong>{data.stats.pendingDetections}</strong><small>detecciones pendientes</small></article>
+      </section>
+
+      <section className="ops-grid">
+        <article className="admin-panel map-panel" id="inventory-map">
           <div className="panel-title">
-            <h2>Salud del inventario</h2>
-            <span>estado actual</span>
+            <div>
+              <h2>Mapa operativo</h2>
+              <span>Sierra de Santa Catarina · inventario georreferenciado</span>
+            </div>
+            <strong>{mappedTrees.length ? `${mappedTrees.length} pines` : "demo"}</strong>
+          </div>
+          <div className="field-map">
+            <div className="map-grid" />
+            {mappedTrees.map((tree, index) => {
+              const x = 14 + ((index * 29) % 72);
+              const y = 18 + ((index * 47) % 64);
+              return (
+                <a
+                  aria-label={`Abrir perfil ${tree.public_code}`}
+                  className={`map-pin pin-${String(tree.health_status || "unknown").toLowerCase()}`}
+                  href={`/plantas/${tree.public_code}`}
+                  key={tree.public_code}
+                  style={{ left: `${x}%`, top: `${y}%` }}
+                  title={`${tree.public_code} · ${tree.species}`}
+                />
+              );
+            })}
+            {!mappedTrees.length && demoPins.map((pin) => (
+              <span
+                className={`map-pin map-pin-demo pin-${pin.status}`}
+                key={`${pin.status}-${pin.x}`}
+                style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
+              />
+            ))}
+            {!mappedTrees.length && (
+              <div className="map-empty">
+                <strong>Listo para captura</strong>
+                <span>Registra tres plantas desde el escáner y este mapa cobra vida.</span>
+              </div>
+            )}
+          </div>
+        </article>
+
+        <article className="admin-panel health-panel">
+          <div className="panel-title">
+            <div>
+              <h2>Salud del inventario</h2>
+              <span>lectura visual por estado</span>
+            </div>
           </div>
           <div className="health-list">
             {data.healthRows.map((row) => (
@@ -167,29 +258,41 @@ export default async function AdminPage() {
                 <strong>{row.count}</strong>
               </div>
             ))}
+            {!data.healthRows.length && <p className="quiet-empty">Aún no hay estados registrados.</p>}
           </div>
         </article>
 
-        <article className="admin-panel">
+        <article className="admin-panel activity-panel">
           <div className="panel-title">
-            <h2>Ultimos lotes</h2>
-            <span>campo + ML</span>
+            <div>
+              <h2>Actividad reciente</h2>
+              <span>capturas y lotes de campo</span>
+            </div>
           </div>
           <div className="batch-list">
-            {data.latestBatches.map((batch) => (
+            {data.latestBatches.slice(0, 5).map((batch) => (
               <div key={batch.id}>
                 <strong>{batch.id}</strong>
-                <span>{batch.source} · {batch.status} · {batch.model_version || "sin modelo"}</span>
+                <span>{batch.source} · {batch.status}</span>
               </div>
             ))}
+            {!data.latestBatches.length && latestTrees.map((tree) => (
+              <a href={`/plantas/${tree.public_code}`} key={tree.public_code}>
+                <strong>{tree.public_code}</strong>
+                <span>{tree.species} · {tree.health_status} · {tree.zone || "campo"}</span>
+              </a>
+            ))}
+            {!data.latestBatches.length && !latestTrees.length && <p className="quiet-empty">Las capturas aparecerán aquí después del primer escaneo.</p>}
           </div>
         </article>
       </section>
 
       <section className="admin-panel">
         <div className="panel-title">
-          <h2>Detecciones recientes</h2>
-          <span>cola de revision</span>
+          <div>
+            <h2>Detecciones recientes</h2>
+            <span>cola de revisión visual</span>
+          </div>
         </div>
         <div className="admin-table-wrap">
           <table className="admin-table">
@@ -215,7 +318,7 @@ export default async function AdminPage() {
                 </tr>
               ))}
               {!data.detections.length && (
-                <tr><td colSpan="6">Aun no hay detecciones ML. Corre `npm run db:phase2` y luego el pipeline de video.</td></tr>
+                <tr><td colSpan="6">Sin detecciones pendientes. Las capturas del demo se registran como perfiles verificados en el inventario.</td></tr>
               )}
             </tbody>
           </table>
@@ -224,8 +327,10 @@ export default async function AdminPage() {
 
       <section className="admin-panel">
         <div className="panel-title">
-          <h2>Inventario base</h2>
-          <span>{data.trees.length} visibles</span>
+          <div>
+            <h2>Inventario base</h2>
+            <span>{data.trees.length} perfiles visibles</span>
+          </div>
         </div>
         <div className="admin-table-wrap">
           <table className="admin-table">
