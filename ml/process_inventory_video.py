@@ -3,7 +3,7 @@
 Process a field video, track tree detections, and optionally post results to Inland Mex.
 
 Example:
-  python ml/process_inventory_video.py public/Video1.mp4 \
+  python ml/process_inventory_video.py path/to/field-walkthrough.mp4 \
     --model yolov8n.pt \
     --class-filter tree potted plant \
     --api-url https://inland-mex.vercel.app/api/admin/ml-observations \

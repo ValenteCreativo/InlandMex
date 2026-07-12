@@ -49,7 +49,7 @@ pip install -r ml/requirements.txt
 Procesar un video y guardar JSON local:
 
 ```bash
-python ml/process_inventory_video.py public/Video1.mp4 \
+python ml/process_inventory_video.py path/to/field-walkthrough.mp4 \
   --model yolov8n.pt \
   --class-filter tree "potted plant" \
   --latitude 19.344353 \
@@ -59,7 +59,7 @@ python ml/process_inventory_video.py public/Video1.mp4 \
 Procesar e ingresar al admin desplegado:
 
 ```bash
-python ml/process_inventory_video.py public/Video1.mp4 \
+python ml/process_inventory_video.py path/to/field-walkthrough.mp4 \
   --model yolov8n.pt \
   --api-url https://inland-mex.vercel.app/api/admin/ml-observations \
   --ingest-token "$ADMIN_INGEST_TOKEN"
