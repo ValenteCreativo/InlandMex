@@ -124,12 +124,6 @@ export default function Home() {
                 Meditación · Senderismo interpretativo · Visita al cráter opcional · Transporte.
               </span>
             </div>
-            <div>
-              <strong>Inversión</strong>
-              <span>$850 por persona. Reserva con $450 y liquida con $400.</span>
-              <strong>Transferencia</strong>
-              <span>Tarjeta Santander: 5579 0990 1666 4502 · José Varela.</span>
-            </div>
           </div>
         </section>
 
@@ -173,20 +167,20 @@ export default function Home() {
         <section className="compact-section tech" id="technology">
           <div className="section-title">
             <p className="kicker">Tecnología</p>
-            <h2>Datos de campo listos para generar confianza.</h2>
+            <h2>Del árbol observado al impacto verificable.</h2>
           </div>
           <div className="tech-grid">
             <div className="vision-card">
               <div className="scan-scene">
-                <div className="scan-box box-one"><span>salud 92%</span></div>
-                <div className="scan-box box-two"><span>crece +14cm</span></div>
-                <div className="scan-box box-three"><span>especie id</span></div>
+                <div className="scan-box box-one"><span>salud estimada</span></div>
+                <div className="scan-box box-two"><span>crecimiento</span></div>
+                <div className="scan-box box-three"><span>georreferencia</span></div>
               </div>
             </div>
             <div className="mini-stack">
-              <article><strong>Inventario ML</strong><span>La cámara estima salud, crecimiento y riesgo de duplicados por árbol.</span></article>
-              <article><strong>Bonos de carbono</strong><span>Los datos verificados preparan futuros registros de carbono e impacto.</span></article>
-              <article><strong>Padrinazgo NFT</strong><span>Visitantes podrán adoptar un árbol y recibir una prueba digital de cuidado.</span></article>
+              <article><strong>1 · Captura inteligente</strong><span>El celular registra cada árbol con foto, especie, ubicación y señales visibles de salud.</span></article>
+              <article><strong>2 · Inventario con Machine Learning</strong><span>El modelo ayuda a identificar patrones, crecimiento, duplicados y cambios entre visitas.</span></article>
+              <article><strong>3 · Evidencia para carbono</strong><span>Los registros pueden tokenizarse para crear trazabilidad ambiental y preparar futuros mercados de bonos de carbono.</span></article>
             </div>
           </div>
         </section>
@@ -194,21 +188,32 @@ export default function Home() {
         <section className="compact-section reserve" id="reserve">
           <div className="reserve-copy">
             <p className="kicker">Reservas</p>
-            <h2>Reserva tu experiencia.</h2>
-            <p>Envíanos tus fechas, tamaño de grupo o interés de patrocinio. Confirmaremos los detalles de campo.</p>
+            <h2>Asegura tu lugar con anticipo.</h2>
+            <p>Reserva con $450 por persona, envía tu comprobante por WhatsApp y liquida $400 el día de la experiencia.</p>
             <div className="contact-icons">
-              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><span>◎</span> Instagram</a>
-              <a href="mailto:hola@inlandmex.com" aria-label="Email Inland Mex"><span>@</span> Email</a>
+              <a href="https://wa.me/527771309737" target="_blank" rel="noreferrer" aria-label="Enviar comprobante por WhatsApp"><span>↗</span> WhatsApp</a>
+              <a href="https://www.instagram.com/inlandmex" target="_blank" rel="noreferrer" aria-label="Instagram Inland Mex"><span>◎</span> Instagram</a>
               <a href="#top" aria-label="Volver al inicio"><span>↑</span> Inicio</a>
             </div>
           </div>
-          <form className="reserve-form">
-            <label>Nombre<input type="text" name="name" placeholder="Tu nombre" /></label>
-            <label>Email<input type="email" name="email" placeholder="tu@email.com" /></label>
-            <label>Interés<select name="interest"><option>Reservar una ruta</option><option>Apadrinar un árbol</option><option>Aliarme con Inland Mex</option></select></label>
-            <label>Mensaje<textarea name="message" rows="2" placeholder="Fechas, grupo o notas" /></label>
-            <button type="submit">Enviar solicitud</button>
-          </form>
+          <div className="payment-card" aria-label="Datos de pago">
+            <div>
+              <strong>Inversión</strong>
+              <span>$850 por persona</span>
+            </div>
+            <div>
+              <strong>Reserva</strong>
+              <span>$450 de anticipo · $400 al llegar</span>
+            </div>
+            <div>
+              <strong>Transferencia Santander</strong>
+              <span>5579 0990 1666 4502</span>
+            </div>
+            <div>
+              <strong>Titular</strong>
+              <span>José Varela</span>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -219,7 +224,7 @@ export default function Home() {
           <a href="#technology">Tecnología</a>
           <a href="#reserve">Reservas</a>
         </nav>
-        <p>777 130 9737 · @Inlandmex</p>
+        <p>From México with 💚</p>
         <small>© 2026 Inland Mex</small>
       </footer>
     </>

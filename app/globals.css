@@ -137,8 +137,7 @@ textarea {
   width: clamp(148px, 18vw, 244px);
 }
 
-.hero-mark a,
-.reserve-form button {
+.hero-mark a {
   background: var(--paper);
   border: 1px solid rgba(22, 25, 20, 0.08);
   border-radius: 999px;
@@ -187,78 +186,78 @@ textarea {
 
 .photo-one {
   --photo: url("/fotos/website/IMG_7523.jpg");
-  border-radius: 999px;
-  height: 138px;
+  border-radius: 6px;
+  height: 210px;
   left: 5vw;
-  top: 18vh;
-  width: 138px;
+  top: 13vh;
+  width: 132px;
 }
 
 .photo-two {
   --photo: url("/fotos/website/Untitled design (1).png");
   background-position: 60% 46%;
   border-radius: 6px;
-  height: 112px;
-  right: 8vw;
-  top: 20vh;
-  width: 168px;
+  height: 198px;
+  right: 7vw;
+  top: 15vh;
+  width: 124px;
 }
 
 .photo-three {
   --photo: url("/fotos/website/Untitled design (2).png");
   background-position: 44% 65%;
   border-radius: 6px;
-  height: 108px;
-  left: 8vw;
-  top: 82vh;
-  width: 170px;
+  height: 188px;
+  left: 13vw;
+  top: 58vh;
+  width: 120px;
 }
 
 .photo-four {
   --photo: url("/fotos/website/Untitled design (3).png");
-  border-radius: 50%;
-  height: 126px;
-  right: 10vw;
-  top: 86vh;
-  width: 126px;
+  border-radius: 6px;
+  height: 96px;
+  right: 9vw;
+  top: 78vh;
+  width: 164px;
 }
 
 .photo-five {
   --photo: url("/fotos/website/Untitled design (4).png");
   background-position: 36% 38%;
   border-radius: 6px;
-  height: 118px;
+  height: 112px;
   left: 6vw;
-  top: 150vh;
-  width: 178px;
+  top: 140vh;
+  width: 176px;
 }
 
 .photo-six {
   --photo: url("/fotos/website/Untitled design (5).png");
   background-position: 70% 60%;
-  border-radius: 999px;
-  height: 116px;
-  right: 7vw;
-  top: 154vh;
-  width: 116px;
+  border-radius: 6px;
+  height: 172px;
+  right: 6vw;
+  top: 144vh;
+  width: 110px;
 }
 
 .photo-seven {
   --photo: url("/fotos/website/Untitled design (6).png");
-  border-radius: 50%;
-  height: 82px;
-  left: 23vw;
-  top: 40vh;
-  width: 82px;
+  border-radius: 6px;
+  height: 78px;
+  left: 25vw;
+  top: 28vh;
+  width: 132px;
 }
 
 .photo-eight {
   --photo: url("/fotos/website/Grafity tour_.png");
   border-radius: 6px;
-  height: 92px;
-  right: 22vw;
-  top: 132vh;
-  width: 148px;
+  height: 86px;
+  right: 24vw;
+  top: 128vh;
+  width: 140px;
 }
 
 @keyframes floatUp {
@@ -271,6 +270,7 @@ textarea {
 }
 
 .story-copy {
+  color: var(--paper);
   display: grid;
   margin: 20vh auto;
   max-width: 460px;
@@ -278,13 +278,14 @@ textarea {
   place-content: center;
   position: relative;
   text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.62);
   z-index: 6;
 }
 
 .story-copy::before,
 .section-title::before,
 .reserve-copy::before {
-  background: radial-gradient(ellipse at center, rgba(242, 234, 220, 0.72), rgba(242, 234, 220, 0.34) 46%, transparent 74%);
+  background: radial-gradient(ellipse at center, rgba(10, 12, 8, 0.44), rgba(10, 12, 8, 0.2) 46%, transparent 74%);
   content: "";
   filter: blur(18px);
   inset: -34px -54px;
@@ -298,7 +299,7 @@ textarea {
 }
 
 .kicker {
-  color: var(--leaf);
+  color: var(--fern);
   font-size: 0.5rem;
   font-weight: 900;
   letter-spacing: 0.04em;
@@ -333,6 +334,10 @@ p {
   color: rgba(22, 25, 20, 0.68);
   font-size: 0.66rem;
   line-height: 1.48;
+}
+
+.story-copy p:not(.kicker) {
+  color: rgba(247, 242, 232, 0.82);
 }
 
 .compact-section,
@@ -429,7 +434,7 @@ p {
   border: 1px solid var(--line);
   display: grid;
   gap: 18px;
-  grid-template-columns: 1.35fr 0.9fr;
+  grid-template-columns: 1fr;
   margin: 14px auto 0;
   max-width: 690px;
   padding: 10px;
@@ -454,7 +459,7 @@ p {
   align-items: center;
   background:
     linear-gradient(rgba(18, 20, 14, 0.46), rgba(18, 20, 14, 0.46)),
-    url("/fotos/website/Untitled design (6).png");
+    url("/fotos/website/Untitled design (2).png");
   background-position: center 48%;
   background-size: cover;
   border: 1px solid rgba(247, 242, 232, 0.3);
@@ -565,7 +570,7 @@ p {
 .tree-feed,
 .metrics div,
 .mini-stack article,
-.reserve-form,
+.payment-card,
 .contact-icons a {
   background: rgba(238, 231, 217, 0.2);
   border: 1px solid var(--line);
@@ -599,7 +604,7 @@ p {
 }
 
 .feed-window ul {
-  animation: feedScroll 62s linear infinite;
+  animation: feedScroll 82s linear infinite;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -660,8 +665,8 @@ p {
 
 .tech-grid {
   display: grid;
-  gap: 12px;
-  grid-template-columns: minmax(0, 0.88fr) minmax(215px, 0.58fr);
+  gap: 14px;
+  grid-template-columns: minmax(0, 0.82fr) minmax(250px, 0.66fr);
   position: relative;
   z-index: 1;
 }
@@ -720,14 +725,29 @@ p {
 
 .mini-stack {
   display: grid;
-  gap: 8px;
+  gap: 9px;
 }
 
 .mini-stack article {
+  background:
+    linear-gradient(120deg, rgba(238, 231, 217, 0.26), rgba(238, 231, 217, 0.12)),
+    rgba(238, 231, 217, 0.2);
   display: grid;
-  gap: 6px;
-  min-height: 52px;
-  padding: 8px 9px;
+  gap: 7px;
+  min-height: 62px;
+  padding: 10px 11px;
+  position: relative;
+}
+
+.mini-stack article::before {
+  background: var(--leaf);
+  content: "";
+  height: 100%;
+  left: -1px;
+  opacity: 0.75;
+  position: absolute;
+  top: 0;
+  width: 2px;
 }
 
 .reserve {
@@ -771,39 +791,34 @@ p {
   width: 15px;
 }
 
-.reserve-form {
+.payment-card {
   display: grid;
-  gap: 6px;
-  padding: 8px;
+  gap: 8px;
+  padding: 10px;
 }
 
-.reserve-form label {
-  color: rgba(22, 25, 20, 0.7);
+.payment-card div {
+  border-bottom: 1px solid var(--line);
   display: grid;
+  gap: 4px;
+  padding-bottom: 8px;
+}
+
+.payment-card div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.payment-card strong {
+  color: rgba(22, 25, 20, 0.7);
   font-size: 0.5rem;
   font-weight: 900;
-  gap: 4px;
   text-transform: uppercase;
 }
 
-.reserve-form input,
-.reserve-form select,
-.reserve-form textarea {
-  background: rgba(247, 242, 232, 0.78);
-  border: 1px solid var(--line);
-  color: var(--ink);
-  outline: none;
-  padding: 5px 7px;
-  width: 100%;
-}
-
-.reserve-form textarea {
-  resize: vertical;
-}
-
-.reserve-form button {
-  justify-self: start;
-  margin-top: 2px;
+.payment-card span {
+  color: rgba(22, 25, 20, 0.75);
+  font-size: 0.72rem;
 }
 
 .footer {
